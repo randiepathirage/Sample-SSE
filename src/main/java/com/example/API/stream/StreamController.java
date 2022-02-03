@@ -3,6 +3,7 @@ package com.example.API.stream;
 import com.example.API.transmitter.Transmitter;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -19,7 +20,7 @@ public class StreamController {
     //stream Configuration
     //get
     @GetMapping("stream")
-    public List<Stream> getConfiguration() {
+    public Stream getConfiguration() {
 
         return streamService.getConfiguration();
     }
@@ -41,7 +42,7 @@ public class StreamController {
     //stream status
     //get
     @GetMapping("status")
-    public List<Stream> getStatus() {
+    public Stream getStatus() {
 
         return streamService.getStatus();
     }

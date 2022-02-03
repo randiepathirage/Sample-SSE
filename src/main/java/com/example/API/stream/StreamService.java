@@ -3,20 +3,33 @@ package com.example.API.stream;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
 
 @Service
 public class StreamService {
-    public List<Stream> getConfiguration() {
-        return Arrays.asList((new Stream(
-                "https://tr.example.com")
-        ));
-    }
 
-    public List<Stream> getStatus() {
-        return Arrays.asList((new Stream(
-                "https://tr.example.com")
-        ));
+    private Stream stream = new Stream(
+            "https://tr.example.com",
+            "enabled",
+            Arrays.asList("http://receiver.example.com/web", "http://receiver.example.com/mobile"),
+            Arrays.asList("https://schemas.openid.net/secevent/risc/delivery-method/push"),
+            Arrays.asList("urn:example:secevent:events:type_1", "urn:example:secevent:events:type_2", "urn:example:secevent:events:type_3"),
+            Arrays.asList("urn:example:secevent:events:type_2", "urn:example:secevent:events:type_3", "urn:example:secevent:events:type_4"),
+            Arrays.asList("urn:example:secevent:events:type_3", "urn:example:secevent:events:type_2")
+    );
+
+
+    public Stream getConfiguration() {
+
+        Stream config = new Stream(
+                stream.getIss(),
+                stream.getAud(),
+                stream.getDelivery(),
+                stream.getEvents_supported(),
+                stream.getEvents_requested(),
+                stream.getEvents_delivered()
+        );
+        return config;
     }
 
     public String updateConfiguration() {
@@ -25,6 +38,13 @@ public class StreamService {
 
     public String deleteConfiguration() {
         return "Stream Deleted!";
+    }
+
+    public Stream getStatus() {
+        Stream status = new Stream(
+                stream.getStatus()
+        );
+        return status;
     }
 
     public String updateStatus() {
