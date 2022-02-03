@@ -1,6 +1,9 @@
 package com.example.API.stream;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "sse")
@@ -45,7 +48,7 @@ public class StreamController {
 
     //update
     @PostMapping("status")
-    public String updateStatus() {
+    public Stream updateStatus(@RequestBody Stream status) {
 
         return streamService.updateStatus();
     }
@@ -59,14 +62,15 @@ public class StreamController {
 
     //Remove Subject
     @PostMapping("subjects:remove")
-    public String removeSubject() {
+    //@ResponseStatus(HttpStatus.NO_CONTENT) //204
+    public List<Subject> removeSubject(@RequestBody Subject subject) {
 
-        return streamService.removeSubject();
+        return streamService.removeSubject(subject);
     }
 
     //Verification
     @PostMapping("verify")
-    public String verification() {
+    public Stream verification() {
 
         return streamService.verification();
     }

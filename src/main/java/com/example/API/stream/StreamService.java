@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
+
 @Service
 public class StreamService {
 
@@ -35,6 +37,7 @@ public class StreamService {
     }
 
     public String updateConfiguration() {
+
         return "Stream updated!";
     }
 
@@ -49,8 +52,12 @@ public class StreamService {
         return status;
     }
 
-    public String updateStatus() {
-        return "Stream status updated!";
+    public Stream updateStatus() {
+        stream.setStatus("disabled");
+        Stream status = new Stream(
+                stream.getStatus()
+        );
+        return status;
     }
 
     public void addSubject(Subject newSubject) {
@@ -59,14 +66,25 @@ public class StreamService {
         newSubjects.addAll(stream.getSubjects());
         newSubjects.add(newSubject);
         stream.setSubjects(newSubjects);
-        // return stream.getSubjects();
     }
 
-    public String removeSubject() {
-        return "remove subject!";
+    //.................
+    public List<Subject> removeSubject(Subject removeSubject) {
+        List<Subject> newSubjects = new ArrayList<>();
+        newSubjects.addAll(stream.getSubjects());
+        newSubjects.add(new Subject("email","dfdffdf"));
+        int keyLocation = newSubjects.indexOf("email");
+        //newSubjects.remove(keyLocation);
+        log.println(keyLocation);
+        return newSubjects;
     }
 
-    public String verification() {
-        return "verification!";
+    public Stream verification() {
+        Stream verify = new Stream(
+                stream.getIss(),
+                stream.getAud(),
+                stream.getEvents_delivered()
+        );
+        return verify;
     }
 }

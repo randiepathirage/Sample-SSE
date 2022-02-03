@@ -15,6 +15,16 @@ public class Stream {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<Subject> subjects;
 
+    public Stream(String status) {
+        this.status = status;
+    }
+
+    public Stream(String iss, List<String> aud, List<String> delivery) {
+        this.iss = iss;
+        this.aud = aud;
+        this.delivery = delivery;
+    }
+
     public Stream(String iss, String status, List<String> aud, List<String> delivery, List<String> events_supported, List<String> events_requested, List<String> events_delivered, List<Subject> subjects) {
         this.iss = iss;
         this.status = status;
@@ -35,8 +45,11 @@ public class Stream {
         this.events_delivered = events_delivered;
     }
 
-    public Stream(String status) {
-        this.status = status;
+    public Stream(String iss, List<String> aud, List<String> delivery, List<String> events_requested) {
+        this.iss = iss;
+        this.aud = aud;
+        this.delivery = delivery;
+        this.events_requested = events_requested;
     }
 
     public String getIss() {
