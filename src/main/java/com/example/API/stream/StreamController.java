@@ -1,10 +1,6 @@
 package com.example.API.stream;
 
-import com.example.API.transmitter.Transmitter;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.List;
 
 @RestController
 @RequestMapping(path = "sse")
@@ -56,9 +52,9 @@ public class StreamController {
 
     //Add Subject
     @PostMapping("subjects:add")
-    public String addSubject() {
+    public void addSubject(@RequestBody Subject subject) {
 
-        return streamService.addSubject();
+        streamService.addSubject(subject);
     }
 
     //Remove Subject

@@ -2,8 +2,9 @@ package com.example.API.stream;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class StreamService {
@@ -15,7 +16,8 @@ public class StreamService {
             Arrays.asList("https://schemas.openid.net/secevent/risc/delivery-method/push"),
             Arrays.asList("urn:example:secevent:events:type_1", "urn:example:secevent:events:type_2", "urn:example:secevent:events:type_3"),
             Arrays.asList("urn:example:secevent:events:type_2", "urn:example:secevent:events:type_3", "urn:example:secevent:events:type_4"),
-            Arrays.asList("urn:example:secevent:events:type_3", "urn:example:secevent:events:type_2")
+            Arrays.asList("urn:example:secevent:events:type_3", "urn:example:secevent:events:type_2"),
+            Arrays.asList(new Subject("email", "_Spring FrameWork"))
     );
 
 
@@ -51,8 +53,13 @@ public class StreamService {
         return "Stream status updated!";
     }
 
-    public String addSubject() {
-        return "new subject added to the stream!";
+    public void addSubject(Subject newSubject) {
+
+        List<Subject> newSubjects = new ArrayList<>();
+        newSubjects.addAll(stream.getSubjects());
+        newSubjects.add(newSubject);
+        stream.setSubjects(newSubjects);
+        // return stream.getSubjects();
     }
 
     public String removeSubject() {
