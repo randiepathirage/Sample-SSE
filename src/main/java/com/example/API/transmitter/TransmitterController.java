@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(path="well-known/sse-configuration")
+@RequestMapping(path = "well-known/sse-configuration")
 public class TransmitterController {
 
     private final TransmitterService transmitterService;
@@ -19,7 +19,7 @@ public class TransmitterController {
     }
 
     @GetMapping
-    public List<Transmitter> getConfiguration(){
+    public List<Transmitter> getConfiguration() {
         return transmitterService.getConfiguration();
     }
 }

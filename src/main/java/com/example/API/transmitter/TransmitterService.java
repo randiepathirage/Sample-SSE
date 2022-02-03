@@ -8,7 +8,7 @@ import java.util.List;
 @Service
 public class TransmitterService {
 
-    public List<Transmitter> getConfiguration(){
+    public List<Transmitter> getConfiguration() {
         return Arrays.asList((new Transmitter(
                 "https://tr.example.com",
                 "https://tr.example.com/jwks.json",
