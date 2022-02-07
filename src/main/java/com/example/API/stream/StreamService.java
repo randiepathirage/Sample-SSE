@@ -52,8 +52,9 @@ public class StreamService {
         return updatedConfig;
     }
 
-    public String deleteConfiguration() {
-        return "Stream Deleted!";
+    public void deleteConfiguration() {
+        stream.setEvents_requested(null);
+        stream.setDelivery(null);
     }
 
     public Stream getStatus() {
@@ -76,17 +77,33 @@ public class StreamService {
         newSubjects.addAll(stream.getSubjects());
         newSubjects.add(newSubject);
         stream.setSubjects(newSubjects);
+
     }
 
-    //.................
-    public List<Subject> removeSubject(Subject removeSubject) {
+    public void removeSubject(Subject removeSubject) {
         List<Subject> newSubjects = new ArrayList<>();
         newSubjects.addAll(stream.getSubjects());
-        newSubjects.add(new Subject("email","dfdffdf"));
-        int keyLocation = newSubjects.indexOf("email");
-        //newSubjects.remove(keyLocation);
-        log.println(keyLocation);
-        return newSubjects;
+
+        int flag =0;
+        for (int i=0; i < newSubjects.size(); i++) {
+            if (removeSubject.getFormat().equals(newSubjects.get(i).getFormat())) {
+                if (removeSubject.getEmail().equals(newSubjects.get(i).getEmail())) {
+                    flag=i;
+                   break;
+                }
+                if (removeSubject.getIss().equals(newSubjects.get(i).getIss())) {
+                    flag=i;
+                    break;
+                }
+                if (removeSubject.getPhone_number().equals(newSubjects.get(i).getPhone_number())) {
+                    flag=i;
+                    break;
+                }
+            }
+        }
+        log.println(flag);
+        newSubjects.remove(flag);
+        stream.setSubjects(newSubjects);
     }
 
     public Stream verification() {

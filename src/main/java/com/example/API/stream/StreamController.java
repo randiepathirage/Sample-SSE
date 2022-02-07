@@ -33,9 +33,9 @@ public class StreamController {
 
     //delete
     @DeleteMapping("stream")
-    public String deleteConfiguration() {
+    public void deleteConfiguration() {
 
-        return streamService.deleteConfiguration();
+        streamService.deleteConfiguration();
     }
 
     //stream status
@@ -62,10 +62,10 @@ public class StreamController {
 
     //Remove Subject
     @PostMapping("subjects:remove")
-    //@ResponseStatus(HttpStatus.NO_CONTENT) //204
-    public List<Subject> removeSubject(@RequestBody Subject subject) {
+    @ResponseStatus(HttpStatus.NO_CONTENT) //204
+    public void removeSubject(@RequestBody Subject subject) {
 
-        return streamService.removeSubject(subject);
+        streamService.removeSubject(subject);
     }
 
     //Verification

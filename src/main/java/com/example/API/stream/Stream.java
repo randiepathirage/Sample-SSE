@@ -15,7 +15,8 @@ public class Stream {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<Subject> subjects;
 
-    public Stream() {}
+    public Stream() {
+    }
 
     public Stream(String status) {
         this.status = status;
@@ -58,10 +59,6 @@ public class Stream {
         return iss;
     }
 
-    public void setIss(String iss) {
-        this.iss = iss;
-    }
-
     public String getStatus() {
         return status;
     }
@@ -72,10 +69,6 @@ public class Stream {
 
     public List<String> getAud() {
         return aud;
-    }
-
-    public void setAud(List<String> aud) {
-        this.aud = aud;
     }
 
     public List<String> getDelivery() {
@@ -90,10 +83,6 @@ public class Stream {
         return events_supported;
     }
 
-    public void setEvents_supported(List<String> events_supported) {
-        this.events_supported = events_supported;
-    }
-
     public List<String> getEvents_requested() {
         return events_requested;
     }
@@ -104,10 +93,6 @@ public class Stream {
 
     public List<String> getEvents_delivered() {
         return events_delivered;
-    }
-
-    public void setEvents_delivered(List<String> events_delivered) {
-        this.events_delivered = events_delivered;
     }
 
     public List<Subject> getSubjects() {
