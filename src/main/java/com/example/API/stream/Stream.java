@@ -15,6 +15,8 @@ public class Stream {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<Subject> subjects;
 
+    public Stream() {}
+
     public Stream(String status) {
         this.status = status;
     }

@@ -52,11 +52,10 @@ public class StreamService {
         return status;
     }
 
-    public Stream updateStatus() {
-        stream.setStatus("disabled");
-        Stream status = new Stream(
-                stream.getStatus()
-        );
+    public Stream updateStatus(Stream status) {
+
+        String newStatus = status.getStatus();
+        stream.setStatus(newStatus);
         return status;
     }
 

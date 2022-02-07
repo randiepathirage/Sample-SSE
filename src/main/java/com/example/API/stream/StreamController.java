@@ -50,7 +50,7 @@ public class StreamController {
     @PostMapping("status")
     public Stream updateStatus(@RequestBody Stream status) {
 
-        return streamService.updateStatus();
+        return streamService.updateStatus(status);
     }
 
     //Add Subject
