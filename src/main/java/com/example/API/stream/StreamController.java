@@ -26,9 +26,9 @@ public class StreamController {
 
     //update
     @PostMapping("stream")
-    public String updateConfiguration() {
+    public Stream updateConfiguration(@RequestBody Stream config) {
 
-        return streamService.updateConfiguration();
+        return streamService.updateConfiguration(config);
     }
 
     //delete

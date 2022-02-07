@@ -36,9 +36,20 @@ public class StreamService {
         return config;
     }
 
-    public String updateConfiguration() {
+    public Stream updateConfiguration(Stream newConfig) {
+        stream.setEvents_requested(newConfig.getEvents_requested());
+        stream.setDelivery(newConfig.getDelivery());
 
-        return "Stream updated!";
+        Stream updatedConfig = new Stream(
+                stream.getIss(),
+                stream.getAud(),
+                stream.getDelivery(),
+                stream.getEvents_supported(),
+                stream.getEvents_requested(),
+                stream.getEvents_delivered()
+        );
+
+        return updatedConfig;
     }
 
     public String deleteConfiguration() {
