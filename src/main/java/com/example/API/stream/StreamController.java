@@ -42,14 +42,14 @@ public class StreamController {
     //stream status
     //get
     @GetMapping("status")
-    public Stream getStatus() {
+    public ResponseEntity<Stream> getStatus() {
 
         return streamService.getStatus();
     }
 
     //update
     @PostMapping("status")
-    public Stream updateStatus(@RequestBody Stream status) {
+    public ResponseEntity<Stream> updateStatus(@RequestBody Stream status) {
 
         return streamService.updateStatus(status);
     }

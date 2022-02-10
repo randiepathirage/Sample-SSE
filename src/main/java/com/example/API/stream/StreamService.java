@@ -80,18 +80,26 @@ public class StreamService {
         stream.setDelivery(null);
     }
 
-    public Stream getStatus() {
-        Stream status = new Stream(
-                stream.getStatus()
-        );
-        return status;
+    public ResponseEntity<Stream> getStatus() {
+        if (stream != null) {
+            Stream status = new Stream(
+                    stream.getStatus()
+            );
+            return new ResponseEntity<>(status, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 
-    public Stream updateStatus(Stream status) {
+    public ResponseEntity<Stream> updateStatus(Stream status) {
 
-        String newStatus = status.getStatus();
-        stream.setStatus(newStatus);
-        return status;
+        if (stream != null) {
+            String newStatus = status.getStatus();
+            stream.setStatus(newStatus);
+            return new ResponseEntity<>(status, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 
     public void addSubject(Subject newSubject) {

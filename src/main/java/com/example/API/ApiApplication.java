@@ -31,7 +31,7 @@ public class ApiApplication {
 
     private ApiInfo apiInfo() {
 
-        return new ApiInfoBuilder().title("Sample SSE API")
+        return new ApiInfoBuilder().title("Sample SSE API").version("1.0.0")
                 .build();
     }
 }
