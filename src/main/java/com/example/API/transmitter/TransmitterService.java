@@ -17,7 +17,8 @@ public class TransmitterService {
                 "https://tr.example.com/sse/mgmt/verification",
                 "https://tr.example.com/sse/mgmt/status",
                 Arrays.asList("tenant", "user"),
-                Arrays.asList("https://schemas.openid.net/secevent/risc/delivery-method/push", "https://schemas.openid.net/secevent/risc/delivery-method/poll")
+                Arrays.asList("https://schemas.openid.net/secevent/risc/delivery-method/push",
+                        "https://schemas.openid.net/secevent/risc/delivery-method/poll")
         )));
     }
 }
@@ -27,9 +28,13 @@ public class TransmitterService {
 //        {
 //        "issuer": "https://tr.example.com",
 //        "jwks_uri": "https://tr.example.com/jwks.json",
-//        "delivery_methods_supported": [ "https://schemas.openid.net/secevent/risc/delivery-method/push", "https://schemas.openid.net/secevent/risc/delivery-method/poll"], "configuration_endpoint": "https://tr.example.com/sse/mgmt/stream",
+//        "delivery_methods_supported": [ "https://schemas.openid.net/secevent/risc/delivery-method/push",
+//        "https://schemas.openid.net/secevent/risc/delivery-method/poll"],
+//        "configuration_endpoint": "https://tr.example.com/sse/mgmt/stream",
 //        "status_endpoint": "https://tr.example.com/sse/mgmt/status",
-//        "add_subject_endpoint": "https://tr.example.com/sse/mgmt/subject:add", "remove_subject_endpoint": "https://tr.example.com/sse/mgmt/subject:remove", "verification_endpoint": "https://tr.example.com/sse/mgmt/verification",
+//        "add_subject_endpoint": "https://tr.example.com/sse/mgmt/subject:add",
+//        "remove_subject_endpoint": "https://tr.example.com/sse/mgmt/subject:remove",
+//        "verification_endpoint": "https://tr.example.com/sse/mgmt/verification",
 //        "critical_subject_members": [ "tenant", "user" ]
 //        }
 //

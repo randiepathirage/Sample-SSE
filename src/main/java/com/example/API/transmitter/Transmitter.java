@@ -3,10 +3,13 @@ package com.example.API.transmitter;
 import java.util.List;
 
 public class Transmitter {
-    private String issuer, jwks_uri, add_subject_endpoint, remove_subject_endpoint, verification_endpoint, status_endpoint;
+    private String issuer, jwks_uri, add_subject_endpoint, remove_subject_endpoint, verification_endpoint,
+            status_endpoint;
     private List<String> critical_subject_members, delivery_methods_supported;
 
-    public Transmitter(String issuer, String jwks_uri, String add_subject_endpoint, String remove_subject_endpoint, String verification_endpoint, String status_endpoint, List<String> critical_subject_members, List<String> delivery_methods_supported) {
+    public Transmitter(String issuer, String jwks_uri, String add_subject_endpoint, String remove_subject_endpoint,
+                       String verification_endpoint, String status_endpoint, List<String> critical_subject_members,
+                       List<String> delivery_methods_supported) {
         this.issuer = issuer;
         this.jwks_uri = jwks_uri;
         this.add_subject_endpoint = add_subject_endpoint;

@@ -28,7 +28,8 @@ public class Stream {
         this.delivery = delivery;
     }
 
-    public Stream(String iss, String status, List<String> aud, List<String> delivery, List<String> events_supported, List<String> events_requested, List<String> events_delivered, List<Subject> subjects) {
+    public Stream(String iss, String status, List<String> aud, List<String> delivery, List<String> events_supported,
+                  List<String> events_requested, List<String> events_delivered, List<Subject> subjects) {
         this.iss = iss;
         this.status = status;
         this.aud = aud;
@@ -39,7 +40,8 @@ public class Stream {
         this.subjects = subjects;
     }
 
-    public Stream(String iss, List<String> aud, List<String> delivery, List<String> events_supported, List<String> events_requested, List<String> events_delivered) {
+    public Stream(String iss, List<String> aud, List<String> delivery, List<String> events_supported,
+                  List<String> events_requested, List<String> events_delivered) {
         this.iss = iss;
         this.aud = aud;
         this.delivery = delivery;
@@ -53,6 +55,17 @@ public class Stream {
         this.aud = aud;
         this.delivery = delivery;
         this.events_requested = events_requested;
+    }
+
+    public Stream(String iss, String status, List<String> aud, List<String> delivery, List<String> events_supported,
+                  List<String> events_requested, List<String> events_delivered) {
+        this.iss = iss;
+        this.status = status;
+        this.aud = aud;
+        this.delivery = delivery;
+        this.events_supported = events_supported;
+        this.events_requested = events_requested;
+        this.events_delivered = events_delivered;
     }
 
     public String getIss() {

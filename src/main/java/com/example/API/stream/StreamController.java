@@ -1,6 +1,7 @@
 package com.example.API.stream;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class StreamController {
     //stream Configuration
     //get
     @GetMapping("stream")
-    public Stream getConfiguration() {
+    public ResponseEntity<Stream> getConfiguration() {
 
         return streamService.getConfiguration();
     }

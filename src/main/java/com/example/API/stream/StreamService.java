@@ -1,5 +1,7 @@
 package com.example.API.stream;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,34 +13,55 @@ import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 @Service
 public class StreamService {
 
-    private Stream stream = new Stream(
-            "https://tr.example.com",
-            "enabled",
-            Arrays.asList("http://receiver.example.com/web", "http://receiver.example.com/mobile"),
-            Arrays.asList("https://schemas.openid.net/secevent/risc/delivery-method/push"),
-            Arrays.asList("urn:example:secevent:events:type_1", "urn:example:secevent:events:type_2", "urn:example:secevent:events:type_3"),
-            Arrays.asList("urn:example:secevent:events:type_2", "urn:example:secevent:events:type_3", "urn:example:secevent:events:type_4"),
-            Arrays.asList("urn:example:secevent:events:type_3", "urn:example:secevent:events:type_2"),
-            Arrays.asList(new Subject("email", "_Spring FrameWork"))
-    );
+//    private Stream stream = new Stream(
+//            "https://tr.example.com",
+//            "enabled",
+//            Arrays.asList("http://receiver.example.com/web", "http://receiver.example.com/mobile"),
+//            Arrays.asList("https://schemas.openid.net/secevent/risc/delivery-method/push"),
+//            Arrays.asList("urn:example:secevent:events:type_1", "urn:example:secevent:events:type_2",
+//            "urn:example:secevent:events:type_3"),
+//            Arrays.asList("urn:example:secevent:events:type_2", "urn:example:secevent:events:type_3",
+//            "urn:example:secevent:events:type_4"),
+//            Arrays.asList("urn:example:secevent:events:type_3", "urn:example:secevent:events:type_2"),
+//            Arrays.asList(new Subject("email", "_Spring FrameWork"))
+//    );
+
+    private Stream stream = null;
 
 
-    public Stream getConfiguration() {
+    public ResponseEntity<Stream> getConfiguration() {
 
-        Stream config = new Stream(
-                stream.getIss(),
-                stream.getAud(),
-                stream.getDelivery(),
-                stream.getEvents_supported(),
-                stream.getEvents_requested(),
-                stream.getEvents_delivered()
-        );
-        return config;
+        if (stream != null) {
+            Stream config = new Stream(
+                    stream.getIss(),
+                    stream.getAud(),
+                    stream.getDelivery(),
+                    stream.getEvents_supported(),
+                    stream.getEvents_requested(),
+                    stream.getEvents_delivered()
+            );
+            return new ResponseEntity<>(config, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 
     public Stream updateConfiguration(Stream newConfig) {
-        stream.setEvents_requested(newConfig.getEvents_requested());
-        stream.setDelivery(newConfig.getDelivery());
+        if (stream == null) {
+            stream = new Stream("https://tr.example.com",
+                    "enabled",
+                    Arrays.asList("http://receiver.example.com/web", "http://receiver.example.com/mobile"),
+                    newConfig.getDelivery(),
+                    Arrays.asList("urn:example:secevent:events:type_1", "urn:example:secevent:events:type_2",
+                            "urn:example:secevent:events:type_3"),
+                    Arrays.asList("urn:example:secevent:events:type_2", "urn:example:secevent:events:type_3",
+                            "urn:example:secevent:events:type_4"),
+                    newConfig.getEvents_requested());
+        } else {
+            stream.setEvents_requested(newConfig.getEvents_requested());
+            stream.setDelivery(newConfig.getDelivery());
+        }
+
 
         Stream updatedConfig = new Stream(
                 stream.getIss(),
@@ -84,19 +107,19 @@ public class StreamService {
         List<Subject> newSubjects = new ArrayList<>();
         newSubjects.addAll(stream.getSubjects());
 
-        int flag =0;
-        for (int i=0; i < newSubjects.size(); i++) {
+        int flag = 0;
+        for (int i = 0; i < newSubjects.size(); i++) {
             if (removeSubject.getFormat().equals(newSubjects.get(i).getFormat())) {
                 if (removeSubject.getEmail().equals(newSubjects.get(i).getEmail())) {
-                    flag=i;
-                   break;
+                    flag = i;
+                    break;
                 }
                 if (removeSubject.getIss().equals(newSubjects.get(i).getIss())) {
-                    flag=i;
+                    flag = i;
                     break;
                 }
                 if (removeSubject.getPhone_number().equals(newSubjects.get(i).getPhone_number())) {
-                    flag=i;
+                    flag = i;
                     break;
                 }
             }
