@@ -34,6 +34,7 @@ public class TransmitterService {
                 "https://tr.example.com/sse/mgmt/subject:remove",
                 "https://tr.example.com/sse/mgmt/verification",
                 "https://tr.example.com/sse/mgmt/status",
+                "https://tr.example.com/sse/mgmt/config",
                 Arrays.asList("tenant", "user"),
                 Arrays.asList("https://schemas.openid.net/secevent/risc/delivery-method/push",
                         "https://schemas.openid.net/secevent/risc/delivery-method/poll")

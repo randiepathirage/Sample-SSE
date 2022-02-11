@@ -56,7 +56,7 @@ public class Stream {
     public Stream(String id, String iss, String status, List<String> aud, List<String> delivery,
                   List<String> events_supported, List<String> events_requested,
                   List<String> events_delivered, List<Subject> subjects) {
-        this.id=id;
+        this.id = id;
         this.iss = iss;
         this.status = status;
         this.aud = aud;
@@ -67,9 +67,9 @@ public class Stream {
         this.subjects = subjects;
     }
 
-    public Stream(String id,String iss, List<String> aud, List<String> delivery, List<String> events_supported,
+    public Stream(String iss, List<String> aud, List<String> delivery, List<String> events_supported,
                   List<String> events_requested, List<String> events_delivered) {
-        this.id=id;
+        this.id = id;
         this.iss = iss;
         this.aud = aud;
         this.delivery = delivery;
@@ -78,8 +78,8 @@ public class Stream {
         this.events_delivered = events_delivered;
     }
 
-    public Stream(String id,String iss, List<String> aud, List<String> delivery, List<String> events_requested) {
-        this.id=id;
+    public Stream(String id, String iss, List<String> aud, List<String> delivery, List<String> events_requested) {
+        this.id = id;
         this.iss = iss;
         this.aud = aud;
         this.delivery = delivery;
@@ -88,7 +88,7 @@ public class Stream {
 
     public Stream(String id, String iss, String status, List<String> aud, List<String> delivery, List<String> events_supported,
                   List<String> events_requested, List<String> events_delivered) {
-        this.id=id;
+        this.id = id;
         this.iss = iss;
         this.status = status;
         this.aud = aud;

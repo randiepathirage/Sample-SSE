@@ -18,7 +18,6 @@
 
 package com.example.API.stream;
 
-import com.example.API.transmitter.Transmitter;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,7 +50,15 @@ public class StreamController {
         String id = "1";
         Optional<Stream> stream = streamRepository.findById(id);
         if (stream.isPresent()) {
-            return new ResponseEntity<>(stream.get(), HttpStatus.OK);
+            Stream getStream = new Stream(
+                    stream.get().getIss(),
+                    stream.get().getAud(),
+                    stream.get().getDelivery(),
+                    stream.get().getEvents_supported(),
+                    stream.get().getEvents_requested(),
+                    stream.get().getEvents_delivered()
+            );
+            return new ResponseEntity<>(getStream, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
@@ -154,7 +161,7 @@ public class StreamController {
             List<Subject> newSubjects = new ArrayList<>();
             try {
                 newSubjects.addAll(streamUpdate.getSubjects());
-            }catch (Exception e){
+            } catch (Exception e) {
 
             }
             newSubjects.add(subject);
@@ -167,19 +174,63 @@ public class StreamController {
     }
 
     //Remove Subject
-//    @PostMapping("subjects:remove")
-//    @ApiOperation(value = "", notes = "Add new subject to the stream")
-//    @ResponseStatus(HttpStatus.NO_CONTENT) //204
-//    public void removeSubject(@RequestBody Subject subject) {
-//
-//        streamService.removeSubject(subject);
-//    }
-//
-//    //Verification
-//    @PostMapping("verify")
-//    @ApiOperation(value = "", notes = "Remove existing subject from the stream")
-//    public Stream verification() {
-//
-//        return streamService.verification();
-//    }
+    @PostMapping("subjects:remove")
+    @ApiOperation(value = "", notes = "Add new subject to the stream")
+    public ResponseEntity<?> removeSubject(@RequestBody Subject removeSubject) {
+
+        String id = "1";
+        Optional<Stream> stream = streamRepository.findById(id);
+        if (stream.isPresent()) {
+            Stream streamSelect = stream.get();
+            List<Subject> newSubjects = new ArrayList<>();
+            try {
+                newSubjects.addAll(streamSelect.getSubjects());
+            } catch (Exception e) {
+
+            }
+            int flag = 0;
+//            for (int i = 0; i < newSubjects.size(); i++) {
+//                if (removeSubject.getFormat().equals(newSubjects.get(i).getFormat())) {
+//                    if (removeSubject.getEmail().equals(newSubjects.get(i).getEmail())) {
+//                        flag = i;
+//                        break;
+//                    }
+//                    if (removeSubject.getIss().equals(newSubjects.get(i).getIss())) {
+//                        flag = i;
+//                        break;
+//                    }
+//                    if (removeSubject.getPhone_number().equals(newSubjects.get(i).getPhone_number())) {
+//                        flag = i;
+//                        break;
+//                    }
+//                }
+//            }
+            newSubjects.remove(flag);
+            streamSelect.setSubjects(newSubjects);
+            streamRepository.save(streamSelect);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+    }
+
+    //Verification
+    @PostMapping("verify")
+    @ApiOperation(value = "", notes = "Remove existing subject from the stream")
+    public ResponseEntity<? extends Object> verification() {
+
+        String id = "1";
+        Optional<Stream> stream = streamRepository.findById(id);
+        if (stream.isPresent()) {
+            Stream getStream = new Stream(
+                    stream.get().getIss(),
+                    stream.get().getAud(),
+                    stream.get().getEvents_delivered()
+            );
+            return new ResponseEntity<>(getStream, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
 }

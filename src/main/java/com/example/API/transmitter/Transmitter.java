@@ -18,21 +18,23 @@
 
 package com.example.API.transmitter;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
-@Document(collation = "Transmitter")
+@Document("Transmitter")
 public class Transmitter {
 
     private String issuer;
     private String jwks_uri, add_subject_endpoint, remove_subject_endpoint, verification_endpoint,
-            status_endpoint;
+            status_endpoint, configuration_endpoint;
     private List<String> critical_subject_members, delivery_methods_supported;
 
+    public Transmitter() {
+    }
+
     public Transmitter(String issuer, String jwks_uri, String add_subject_endpoint, String remove_subject_endpoint,
-                       String verification_endpoint, String status_endpoint, List<String> critical_subject_members,
+                       String verification_endpoint, String status_endpoint, String configuration_endpoint, List<String> critical_subject_members,
                        List<String> delivery_methods_supported) {
         this.issuer = issuer;
         this.jwks_uri = jwks_uri;
@@ -40,6 +42,7 @@ public class Transmitter {
         this.remove_subject_endpoint = remove_subject_endpoint;
         this.verification_endpoint = verification_endpoint;
         this.status_endpoint = status_endpoint;
+        this.configuration_endpoint = configuration_endpoint;
         this.critical_subject_members = critical_subject_members;
         this.delivery_methods_supported = delivery_methods_supported;
     }
@@ -108,15 +111,24 @@ public class Transmitter {
         this.delivery_methods_supported = delivery_methods_supported;
     }
 
+    public String getConfiguration_endpoint() {
+        return configuration_endpoint;
+    }
+
+    public void setConfiguration_endpoint(String configuration_endpoint) {
+        this.configuration_endpoint = configuration_endpoint;
+    }
+
     @Override
     public String toString() {
         return "Transmitter{" +
-                ", issuer='" + issuer + '\'' +
+                "issuer='" + issuer + '\'' +
                 ", jwks_uri='" + jwks_uri + '\'' +
                 ", add_subject_endpoint='" + add_subject_endpoint + '\'' +
                 ", remove_subject_endpoint='" + remove_subject_endpoint + '\'' +
                 ", verification_endpoint='" + verification_endpoint + '\'' +
                 ", status_endpoint='" + status_endpoint + '\'' +
+                ", configuration_endpoint='" + configuration_endpoint + '\'' +
                 ", critical_subject_members=" + critical_subject_members +
                 ", delivery_methods_supported=" + delivery_methods_supported +
                 '}';

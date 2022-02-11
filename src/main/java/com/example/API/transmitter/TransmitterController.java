@@ -19,9 +19,9 @@
 package com.example.API.transmitter;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -41,15 +41,14 @@ public class TransmitterController {
         return transmitterRepository.findAll();
     }
 
-    @PostMapping
-    public ResponseEntity<?> addConfiguration(@RequestBody Transmitter transmitter) {
-
-        try {
-            transmitterRepository.save(transmitter);
-            return new ResponseEntity<>(transmitter, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-    }
+//    @PostMapping
+//    public ResponseEntity<?> addConfiguration(@RequestBody Transmitter transmitter) {
+//
+//        try {
+//            transmitterRepository.save(transmitter);
+//            return new ResponseEntity<>(transmitter, HttpStatus.OK);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
 }
