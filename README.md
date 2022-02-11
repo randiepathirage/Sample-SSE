@@ -15,7 +15,7 @@ REST API based on Java Spring Boot.
 ## Endpoints
 View the Swagger UI open your browser to here:
 ```
-http://localhost:8080/swagger-ui
+http://localhost:8080/swagger-ui/
 ```
 
 ### Transmitter configuration 
