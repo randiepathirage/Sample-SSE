@@ -46,7 +46,7 @@ public class TransmitterController {
 
         try {
             transmitterRepository.save(transmitter);
-            return new ResponseEntity<Transmitter>(transmitter, HttpStatus.OK);
+            return new ResponseEntity<>(transmitter, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }

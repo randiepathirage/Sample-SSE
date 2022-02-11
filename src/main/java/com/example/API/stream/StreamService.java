@@ -47,51 +47,51 @@ public class StreamService {
     private Stream stream = null;
 
 
-    public ResponseEntity<Stream> getConfiguration() {
+//    public ResponseEntity<Stream> getConfiguration() {
+//
+//        if (stream != null) {
+//            Stream config = new Stream(
+//                    stream.getIss(),
+//                    stream.getAud(),
+//                    stream.getDelivery(),
+//                    stream.getEvents_supported(),
+//                    stream.getEvents_requested(),
+//                    stream.getEvents_delivered()
+//            );
+//            return new ResponseEntity<>(config, HttpStatus.OK);
+//        } else {
+//            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+//        }
+//    }
 
-        if (stream != null) {
-            Stream config = new Stream(
-                    stream.getIss(),
-                    stream.getAud(),
-                    stream.getDelivery(),
-                    stream.getEvents_supported(),
-                    stream.getEvents_requested(),
-                    stream.getEvents_delivered()
-            );
-            return new ResponseEntity<>(config, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        }
-    }
-
-    public Stream updateConfiguration(Stream newConfig) {
-        if (stream == null) {
-            stream = new Stream("https://tr.example.com",
-                    "enabled",
-                    Arrays.asList("http://receiver.example.com/web", "http://receiver.example.com/mobile"),
-                    newConfig.getDelivery(),
-                    Arrays.asList("urn:example:secevent:events:type_1", "urn:example:secevent:events:type_2",
-                            "urn:example:secevent:events:type_3"),
-                    Arrays.asList("urn:example:secevent:events:type_2", "urn:example:secevent:events:type_3",
-                            "urn:example:secevent:events:type_4"),
-                    newConfig.getEvents_requested());
-        } else {
-            stream.setEvents_requested(newConfig.getEvents_requested());
-            stream.setDelivery(newConfig.getDelivery());
-        }
-
-
-        Stream updatedConfig = new Stream(
-                stream.getIss(),
-                stream.getAud(),
-                stream.getDelivery(),
-                stream.getEvents_supported(),
-                stream.getEvents_requested(),
-                stream.getEvents_delivered()
-        );
-
-        return updatedConfig;
-    }
+//    public Stream updateConfiguration(Stream newConfig) {
+//        if (stream == null) {
+//            stream = new Stream("https://tr.example.com",
+//                    "enabled",
+//                    Arrays.asList("http://receiver.example.com/web", "http://receiver.example.com/mobile"),
+//                    newConfig.getDelivery(),
+//                    Arrays.asList("urn:example:secevent:events:type_1", "urn:example:secevent:events:type_2",
+//                            "urn:example:secevent:events:type_3"),
+//                    Arrays.asList("urn:example:secevent:events:type_2", "urn:example:secevent:events:type_3",
+//                            "urn:example:secevent:events:type_4"),
+//                    newConfig.getEvents_requested());
+//        } else {
+//            stream.setEvents_requested(newConfig.getEvents_requested());
+//            stream.setDelivery(newConfig.getDelivery());
+//        }
+//
+//
+//        Stream updatedConfig = new Stream(
+//                stream.getIss(),
+//                stream.getAud(),
+//                stream.getDelivery(),
+//                stream.getEvents_supported(),
+//                stream.getEvents_requested(),
+//                stream.getEvents_delivered()
+//        );
+//
+//        return updatedConfig;
+//    }
 
     public void deleteConfiguration() {
         stream.setEvents_requested(null);

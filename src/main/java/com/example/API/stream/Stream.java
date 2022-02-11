@@ -19,13 +19,20 @@
 package com.example.API.stream;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
+@Document(collation = "Stream")
 public class Stream {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String iss, status;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @Id
+    private String id;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<String> aud, delivery, events_supported, events_requested, events_delivered;
@@ -46,8 +53,10 @@ public class Stream {
         this.delivery = delivery;
     }
 
-    public Stream(String iss, String status, List<String> aud, List<String> delivery, List<String> events_supported,
-                  List<String> events_requested, List<String> events_delivered, List<Subject> subjects) {
+    public Stream(String id, String iss, String status, List<String> aud, List<String> delivery,
+                  List<String> events_supported, List<String> events_requested,
+                  List<String> events_delivered, List<Subject> subjects) {
+        this.id=id;
         this.iss = iss;
         this.status = status;
         this.aud = aud;
@@ -58,8 +67,9 @@ public class Stream {
         this.subjects = subjects;
     }
 
-    public Stream(String iss, List<String> aud, List<String> delivery, List<String> events_supported,
+    public Stream(String id,String iss, List<String> aud, List<String> delivery, List<String> events_supported,
                   List<String> events_requested, List<String> events_delivered) {
+        this.id=id;
         this.iss = iss;
         this.aud = aud;
         this.delivery = delivery;
@@ -68,15 +78,17 @@ public class Stream {
         this.events_delivered = events_delivered;
     }
 
-    public Stream(String iss, List<String> aud, List<String> delivery, List<String> events_requested) {
+    public Stream(String id,String iss, List<String> aud, List<String> delivery, List<String> events_requested) {
+        this.id=id;
         this.iss = iss;
         this.aud = aud;
         this.delivery = delivery;
         this.events_requested = events_requested;
     }
 
-    public Stream(String iss, String status, List<String> aud, List<String> delivery, List<String> events_supported,
+    public Stream(String id, String iss, String status, List<String> aud, List<String> delivery, List<String> events_supported,
                   List<String> events_requested, List<String> events_delivered) {
+        this.id=id;
         this.iss = iss;
         this.status = status;
         this.aud = aud;
@@ -84,6 +96,22 @@ public class Stream {
         this.events_supported = events_supported;
         this.events_requested = events_requested;
         this.events_delivered = events_delivered;
+    }
+
+    public void setEvents_supported(List<String> events_supported) {
+        this.events_supported = events_supported;
+    }
+
+    public void setEvents_delivered(List<String> events_delivered) {
+        this.events_delivered = events_delivered;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getIss() {
