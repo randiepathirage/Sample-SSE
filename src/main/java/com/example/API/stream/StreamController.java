@@ -29,7 +29,13 @@ import java.util.List;
 import java.util.Optional;
 
 import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
+/**
+ * Get the instance of the SharedClassLoaderFactory.
+ *
+ * @return  SharedClassLoaderFactory
+ */
 @RestController
 @RequestMapping(path = "sse")
 public class StreamController {
@@ -45,7 +51,11 @@ public class StreamController {
     //get
     @GetMapping("stream")
     @ApiOperation(value = "", notes = "Retrieve current stream configuration")
-    public ResponseEntity<?> getConfiguration() {
+    public ResponseEntity<?> getConfiguration(
+            //@RequestHeader(value = AUTHORIZATION) String accessToken
+            ) {
+
+        //log.println(accessToken);
 
         String id = "1";
         Optional<Stream> stream = streamRepository.findById(id);
@@ -85,8 +95,8 @@ public class StreamController {
                 config.setStatus("enabled");
                 config.setEvents_supported(Arrays.asList("urn:example:secevent:events:type_1",
                         "urn:example:secevent:events:type_2", "urn:example:secevent:events:type_3"));
-                config.setEvents_delivered(Arrays.asList("urn:example:secevent:events:type_2", "urn:example:secevent:events:type_3",
-                        "urn:example:secevent:events:type_4"));
+                config.setEvents_delivered(Arrays.asList("urn:example:secevent:events:type_2",
+                        "urn:example:secevent:events:type_3", "urn:example:secevent:events:type_4"));
                 streamRepository.save(config);
                 return new ResponseEntity<>(config, HttpStatus.OK);
             } catch (Exception e) {
