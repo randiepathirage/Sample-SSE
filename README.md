@@ -6,9 +6,18 @@ REST API based on Java Spring Boot.
 
 * JDK 1.8
 * Maven 3.x
+* MongoDB 5.0.6
 
 
 ## How to Run 
+
+### Frontend
+### Backend
+*  Start MongoDB by running the following command in MongDB bin folder path
+```
+$ mongod
+```
+* You might need to update the default MongoDB URI `spring.data.mongodb.uri` in the `application.properties` file to your port number where MongoDB is running.
 
 ## Features
  
@@ -16,6 +25,10 @@ REST API based on Java Spring Boot.
 View the Swagger UI open your browser to here:
 ```
 http://localhost:8080/swagger-ui/
+```
+The Swagger API documentation 2.0 is at:
+```
+http://localhost:8080/v2/api-docs
 ```
 
 ### Transmitter configuration 
