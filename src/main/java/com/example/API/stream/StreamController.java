@@ -18,6 +18,10 @@
 
 package com.example.API.stream;
 
+import com.example.API.stream.model.AuthenticationRequest;
+import com.example.API.stream.model.AuthenticationResponse;
+import com.example.API.stream.model.Stream;
+import com.example.API.stream.model.Subject;
 import com.example.API.util.JwtUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +39,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Get the instance of the SharedClassLoaderFactory.
- *
- * @return SharedClassLoaderFactory
+ * Controller class for Management API endpoints.
  */
 @RestController
 @RequestMapping(path = "sse")

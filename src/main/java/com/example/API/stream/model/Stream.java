@@ -16,8 +16,9 @@
  * under the License.
  */
 
-package com.example.API.stream;
+package com.example.API.stream.model;
 
+import com.example.API.stream.model.Subject;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -25,7 +26,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.List;
 
 /**
- *
+ * Stream details model.
  */
 @Document(collation = "Stream")
 public class Stream {

@@ -29,6 +29,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+/**
+ * Generate token using client credential grant type.
+ */
 @Service
 public class JwtUtil {
 

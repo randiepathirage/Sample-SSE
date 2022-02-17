@@ -18,6 +18,8 @@
 
 package com.example.API.stream;
 
+import com.example.API.stream.model.Stream;
+import com.example.API.stream.model.Subject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

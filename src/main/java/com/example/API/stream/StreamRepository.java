@@ -18,6 +18,7 @@
 
 package com.example.API.stream;
 
+import com.example.API.stream.model.Stream;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

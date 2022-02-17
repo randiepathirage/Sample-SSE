@@ -16,18 +16,37 @@
  * under the License.
  */
 
-package com.example.API.stream;
+package com.example.API.stream.model;
 
-import java.io.Serializable;
+/**
+ * Authentication Request model.
+ */
+public class AuthenticationRequest {
 
-public class AuthenticationResponse implements Serializable {
-    private final String jwt;
+    private String clintID;
+    private String secret;
 
-    public AuthenticationResponse(String jwt) {
-        this.jwt = jwt;
+    public AuthenticationRequest() {
     }
 
-    public String getJwt() {
-        return jwt;
+    public AuthenticationRequest(String clintID, String secret) {
+        this.clintID = clintID;
+        this.secret = secret;
+    }
+
+    public String getClintID() {
+        return clintID;
+    }
+
+    public void setClintID(String clintID) {
+        this.clintID = clintID;
+    }
+
+    public String getSecret() {
+        return secret;
+    }
+
+    public void setSecret(String secret) {
+        this.secret = secret;
     }
 }

@@ -21,18 +21,22 @@ package com.example.API;
 import com.example.API.stream.ReceiverDetailsService;
 import com.example.API.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
+@Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -43,6 +47,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private RequestFilter requestFilter;
+
+    @Value("${spring.security.oauth2.resourceserver.opaque.introspection-uri}")
+    String introspectionUri;
+
+    @Value("${spring.security.oauth2.resourceserver.opaque.introspection-client-id}")
+    String clientId;
+
+    @Value("${spring.security.oauth2.resourceserver.opaque.introspection-client-secret}")
+    String clientSecret;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -58,6 +71,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 anyRequest().authenticated().and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(requestFilter, UsernamePasswordAuthenticationFilter.class);
+
+//        http
+//                .authorizeHttpRequests(authorize -> authorize
+//                        .anyRequest().authenticated()
+//                )
+//                .oauth2ResourceServer(OAuth2ResourceServerConfigurer::opaqueToken);
+
+//        http
+//                .csrf().disable().authorizeRequests(authz -> authz
+//                        .antMatchers("/.well-known/sse-configuration", "/sse/auth").permitAll()
+//                        .anyRequest().authenticated())
+//                .oauth2ResourceServer(oauth2 -> oauth2
+//                        .opaqueToken(token -> token.introspectionUri(this.introspectionUri)
+//                                .introspectionClientCredentials(this.clientId, this.clientSecret)));
+
+        //      http.addFilterBefore(requestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override

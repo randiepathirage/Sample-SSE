@@ -16,7 +16,7 @@
  * under the License.
  */
 
-package com.example.API.stream;
+package com.example.API.stream.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -27,12 +27,15 @@ public class Subject {
 
     public Subject(String format, String detail) {
         this.format = format;
-        if (format.equals("email"))
+        if (format.equals("email")) {
             this.email = detail;
-        if (format.equals("iss_sub"))
+        }
+        if (format.equals("iss_sub")) {
             this.iss = detail;
-        if (format.equals("phone"))
+        }
+        if (format.equals("phone")) {
             this.phone_number = detail;
+        }
     }
 
     public String getFormat() {

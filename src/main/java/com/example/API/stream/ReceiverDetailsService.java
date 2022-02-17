@@ -26,14 +26,17 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
+/**
+ *
+ */
 @Service
 public class ReceiverDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         return new User(
-                "Randie", // clint ID
-                "123",    // clint secret
+                "uahGz00gRQm6GvkpjOjFmSFmPM0a", // clint ID
+                "n6R8bcCnRi6fSQf4GXaqn3IGnFka",    // clint secret
                 new ArrayList<>()
         );
     }
