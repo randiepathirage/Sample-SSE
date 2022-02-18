@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package com.example.API;
+package org.example.sse;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -29,6 +29,9 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+/**
+ * start application and define swagger docket.
+ */
 @SpringBootApplication
 @EnableSwagger2
 public class ApiApplication {

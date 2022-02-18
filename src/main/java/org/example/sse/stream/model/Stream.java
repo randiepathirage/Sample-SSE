@@ -16,9 +16,8 @@
  * under the License.
  */
 
-package com.example.API.stream.model;
+package org.example.sse.stream.model;
 
-import com.example.API.stream.model.Subject;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

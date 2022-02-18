@@ -16,11 +16,12 @@
  * under the License.
  */
 
-package com.example.API.transmitter;
+package org.example.sse.stream;
 
+import org.example.sse.stream.model.Stream;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TransmitterRepository extends MongoRepository<Transmitter, String> {
+public interface StreamRepository extends MongoRepository<Stream, String> {
 }

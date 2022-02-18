@@ -16,21 +16,11 @@
  * under the License.
  */
 
-package com.example.API.stream.model;
+package org.example.sse.transmitter;
 
-import java.io.Serializable;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
 
-/**
- * Generating JWT model class.
- */
-public class AuthenticationResponse implements Serializable {
-    private final String jwt;
-
-    public AuthenticationResponse(String jwt) {
-        this.jwt = jwt;
-    }
-
-    public String getJwt() {
-        return jwt;
-    }
+@Repository
+public interface TransmitterRepository extends MongoRepository<Transmitter, String> {
 }

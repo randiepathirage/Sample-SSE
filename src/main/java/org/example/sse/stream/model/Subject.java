@@ -16,10 +16,13 @@
  * under the License.
  */
 
-package com.example.API.stream.model;
+package org.example.sse.stream.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+/**
+ * subject details model.
+ */
 public class Subject {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)

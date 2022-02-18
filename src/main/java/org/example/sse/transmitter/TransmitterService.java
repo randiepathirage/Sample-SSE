@@ -16,7 +16,7 @@
  * under the License.
  */
 
-package com.example.API.transmitter;
+package org.example.sse.transmitter;
 
 import org.springframework.stereotype.Service;
 

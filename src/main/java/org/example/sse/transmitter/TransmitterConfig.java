@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package com.example.API.transmitter;
+package org.example.sse.transmitter;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;

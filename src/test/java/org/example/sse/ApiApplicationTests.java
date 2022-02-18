@@ -16,12 +16,16 @@
  * under the License.
  */
 
-package com.example.API.stream;
+package org.example.sse;
 
-import com.example.API.stream.model.Stream;
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Repository;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
-@Repository
-public interface StreamRepository extends MongoRepository<Stream, String> {
+@SpringBootTest
+class ApiApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
 }
