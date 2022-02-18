@@ -22,6 +22,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
+/**
+ * Represents transmitter model.
+ */
 @Document("Transmitter")
 public class Transmitter {
 
@@ -34,7 +37,8 @@ public class Transmitter {
     }
 
     public Transmitter(String issuer, String jwks_uri, String add_subject_endpoint, String remove_subject_endpoint,
-                       String verification_endpoint, String status_endpoint, String configuration_endpoint, List<String> critical_subject_members,
+                       String verification_endpoint, String status_endpoint, String configuration_endpoint,
+                       List<String> critical_subject_members,
                        List<String> delivery_methods_supported) {
         this.issuer = issuer;
         this.jwks_uri = jwks_uri;

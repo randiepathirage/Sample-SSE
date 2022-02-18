@@ -89,7 +89,8 @@ public class Stream {
         this.events_requested = events_requested;
     }
 
-    public Stream(String id, String iss, String status, List<String> aud, List<String> delivery, List<String> events_supported,
+    public Stream(String id, String iss, String status, List<String> aud, List<String> delivery,
+                  List<String> events_supported,
                   List<String> events_requested, List<String> events_delivered) {
         this.id = id;
         this.iss = iss;

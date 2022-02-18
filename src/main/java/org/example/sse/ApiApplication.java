@@ -30,7 +30,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * start application and define swagger docket.
+ * Start application and define swagger docket.
  */
 @SpringBootApplication
 @EnableSwagger2

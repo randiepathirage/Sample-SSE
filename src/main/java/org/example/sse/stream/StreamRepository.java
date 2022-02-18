@@ -22,6 +22,9 @@ import org.example.sse.stream.model.Stream;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+/**
+ * Represents data access layer of management API.
+ */
 @Repository
 public interface StreamRepository extends MongoRepository<Stream, String> {
 }

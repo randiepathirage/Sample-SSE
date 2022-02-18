@@ -21,6 +21,9 @@ package org.example.sse.transmitter;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+/**
+ * Represents data access layer of transmitter.
+ */
 @Repository
 public interface TransmitterRepository extends MongoRepository<Transmitter, String> {
 }

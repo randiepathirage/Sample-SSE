@@ -25,6 +25,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * Defines endpoints related to transmitter.
+ */
 @RestController
 @RequestMapping(path = ".well-known/sse-configuration")
 public class TransmitterController {
