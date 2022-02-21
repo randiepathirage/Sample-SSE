@@ -19,6 +19,8 @@
 package org.example.sse.transmitter;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,8 +42,13 @@ public class TransmitterController {
     }
 
     @GetMapping
-    public List<Transmitter> getConfiguration() {
-        return transmitterRepository.findAll();
-    }
+    public ResponseEntity<?> getConfiguration() {
 
+        List<Transmitter> transmittersList = transmitterRepository.findAll();
+        if (transmittersList.size() == 1) {
+            return new ResponseEntity<>(transmittersList.get(0), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
 }

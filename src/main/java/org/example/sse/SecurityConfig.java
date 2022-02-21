@@ -42,13 +42,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
 
-        http
-                .authorizeRequests(authz -> authz
+        http.authorizeRequests(authz -> authz
                         .antMatchers(HttpMethod.GET, "/sse/").hasAuthority("internal_login")
                         .antMatchers(HttpMethod.POST, "/sse/").hasAuthority("internal_login")
+                        .antMatchers("/.well-known/sse-configuration").permitAll()
                         .anyRequest().authenticated())
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .opaqueToken(token -> token.introspectionUri(this.introspectionUri)
                                 .introspectionClientCredentials(this.clientId, this.clientSecret)));
+
     }
 }
