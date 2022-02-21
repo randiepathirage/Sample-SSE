@@ -41,10 +41,13 @@ public class Stream {
     private String id;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private List<String> aud, delivery, eventsSupported, eventsRequested, eventsDelivered;
+    private List<String> aud, eventsSupported, eventsRequested, eventsDelivered;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<Subject> subjects;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Delivery delivery;
 
     public Stream() {
     }
@@ -53,13 +56,13 @@ public class Stream {
         this.status = status;
     }
 
-    public Stream(String iss, List<String> aud, List<String> delivery) {
+    public Stream(String iss, List<String> aud, Delivery delivery) {
         this.iss = iss;
         this.aud = aud;
         this.delivery = delivery;
     }
 
-    public Stream(String id, String iss, String status, List<String> aud, List<String> delivery,
+    public Stream(String id, String iss, String status, List<String> aud, Delivery delivery,
                   List<String> eventsSupported, List<String> eventsRequested,
                   List<String> eventsDelivered, List<Subject> subjects) {
         this.id = id;
@@ -73,7 +76,7 @@ public class Stream {
         this.subjects = subjects;
     }
 
-    public Stream(String iss, List<String> aud, List<String> delivery, List<String> eventsSupported,
+    public Stream(String iss, List<String> aud, Delivery delivery, List<String> eventsSupported,
                   List<String> eventsRequested, List<String> eventsDelivered) {
         this.id = id;
         this.iss = iss;
@@ -84,7 +87,7 @@ public class Stream {
         this.eventsDelivered = eventsDelivered;
     }
 
-    public Stream(String id, String iss, List<String> aud, List<String> delivery, List<String> eventsRequested) {
+    public Stream(String id, String iss, List<String> aud, Delivery delivery, List<String> eventsRequested) {
         this.id = id;
         this.iss = iss;
         this.aud = aud;
@@ -92,7 +95,7 @@ public class Stream {
         this.eventsRequested = eventsRequested;
     }
 
-    public Stream(String id, String iss, String status, List<String> aud, List<String> delivery,
+    public Stream(String id, String iss, String status, List<String> aud, Delivery delivery,
                   List<String> eventsSupported,
                   List<String> eventsRequested, List<String> eventsDelivered) {
         this.id = id;
@@ -102,6 +105,12 @@ public class Stream {
         this.delivery = delivery;
         this.eventsSupported = eventsSupported;
         this.eventsRequested = eventsRequested;
+        this.eventsDelivered = eventsDelivered;
+    }
+
+    public Stream(String iss, List<String> aud, List<String> eventsDelivered) {
+        this.iss = iss;
+        this.aud = aud;
         this.eventsDelivered = eventsDelivered;
     }
 
@@ -137,11 +146,11 @@ public class Stream {
         return aud;
     }
 
-    public List<String> getDelivery() {
+    public Delivery getDelivery() {
         return delivery;
     }
 
-    public void setDelivery(List<String> delivery) {
+    public void setDelivery(Delivery delivery) {
         this.delivery = delivery;
     }
 

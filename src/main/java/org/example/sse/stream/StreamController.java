@@ -21,20 +21,28 @@ package org.example.sse.stream;
 import io.swagger.annotations.ApiOperation;
 import org.example.sse.stream.model.Stream;
 import org.example.sse.stream.model.Subject;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 /**
  * Controller class for Management API endpoints.
@@ -43,6 +51,9 @@ import java.util.Optional;
 @RequestMapping(path = "sse")
 public class StreamController {
 
+    @Value("${spring.security.oauth2.resourceserver.opaque.introspection-uri}")
+    String introspectionUri;
+
     private final StreamRepository streamRepository;
 
     public StreamController(StreamRepository streamRepository) {
@@ -50,15 +61,15 @@ public class StreamController {
         this.streamRepository = streamRepository;
     }
 
-    //stream Configuration
-    //get
+    //get stream Configuration
     @GetMapping("stream")
     @ApiOperation(value = "", notes = "Retrieve current stream configuration")
     public ResponseEntity<?> getConfiguration(
-            //@RequestHeader(value = AUTHORIZATION) String accessToken
+            @RequestHeader(value = AUTHORIZATION) String accessToken
     ) {
 
-        String id = "1";
+        String token = accessToken.substring(7);
+        String id = getClintId(token);
         Optional<Stream> stream = streamRepository.findById(id);
         if (stream.isPresent()) {
             Stream getStream = new Stream(
@@ -75,13 +86,17 @@ public class StreamController {
         }
     }
 
-    //update/create
+    //update/create stream Configuration
     @PostMapping("stream")
     @ApiOperation(value = "", notes = "Update current stream configuration / create a new stream if stream is not " +
             "available")
-    public ResponseEntity<?> updateConfiguration(@RequestBody Stream config) {
+    public ResponseEntity<?> updateConfiguration(
+            @RequestBody Stream config,
+            @RequestHeader(value = AUTHORIZATION) String accessToken) {
 
-        String id = "1";
+        String token = accessToken.substring(7);
+        String id = getClintId(token);
+
         Optional<Stream> stream = streamRepository.findById(id);
 
         if (stream.isPresent()) {
@@ -101,7 +116,7 @@ public class StreamController {
             return new ResponseEntity<>(updatedStream, HttpStatus.OK);
         } else {
             try {
-                config.setId("1");
+                config.setId(id);
                 config.setStatus("enabled");
                 config.seteventsSupported(Arrays.asList("urn:example:secevent:events:type_1",
                         "urn:example:secevent:events:type_2", "urn:example:secevent:events:type_3"));
@@ -123,14 +138,15 @@ public class StreamController {
         }
     }
 
-    //delete
+    //delete stream Configuration
     @DeleteMapping("stream")
     @ApiOperation(value = "", notes = "Resets to the streams default configuration.All subjects that have been added" +
             " to the stream, events that have been enqueued in the stream, or status that has been set on the stream " +
             "will also be deleted.")
-    public ResponseEntity<?> deleteConfiguration() {
+    public ResponseEntity<?> deleteConfiguration(@RequestHeader(value = AUTHORIZATION) String accessToken) {
 
-        String id = "1";
+        String token = accessToken.substring(7);
+        String id = getClintId(token);
         Optional<Stream> stream = streamRepository.findById(id);
         if (stream.isPresent()) {
             Stream streamDelete = stream.get();
@@ -144,13 +160,13 @@ public class StreamController {
         }
     }
 
-    //stream status
-    //get
+    //get stream status
     @GetMapping("status")
     @ApiOperation(value = "", notes = "Checks the current status of an event stream ")
-    public ResponseEntity<Stream> getStatus() {
+    public ResponseEntity<Stream> getStatus(@RequestHeader(value = AUTHORIZATION) String accessToken) {
 
-        String id = "1";
+        String token = accessToken.substring(7);
+        String id = getClintId(token);
         Optional<Stream> stream = streamRepository.findById(id);
         if (stream.isPresent()) {
             Stream status = new Stream(stream.get().getStatus());
@@ -160,12 +176,15 @@ public class StreamController {
         }
     }
 
-    //update
+    //update stream status
     @PostMapping("status")
     @ApiOperation(value = "", notes = "Updates the current status of a stream")
-    public ResponseEntity<Stream> updateStatus(@RequestBody Stream status) {
+    public ResponseEntity<Stream> updateStatus(
+            @RequestBody Stream status,
+            @RequestHeader(value = AUTHORIZATION) String accessToken) {
 
-        String id = "1";
+        String token = accessToken.substring(7);
+        String id = getClintId(token);
         Optional<Stream> stream = streamRepository.findById(id);
         if (stream.isPresent()) {
             Stream streamUpdate = stream.get();
@@ -180,9 +199,13 @@ public class StreamController {
     //Add Subject
     @PostMapping("subjects:add")
     @ApiOperation(value = "", notes = "Retrieve current stream configuration")
-    public ResponseEntity addSubject(@RequestBody Subject subject) {
+    public ResponseEntity addSubject(
+            @RequestBody Subject subject,
+            @RequestHeader(value = AUTHORIZATION) String accessToken) {
 
-        String id = "1";
+        String token = accessToken.substring(7);
+        String id = getClintId(token);
+
         Optional<Stream> stream = streamRepository.findById(id);
         if (stream.isPresent()) {
             Stream streamUpdate = stream.get();
@@ -203,9 +226,13 @@ public class StreamController {
     //Remove Subject
     @PostMapping("subjects:remove")
     @ApiOperation(value = "", notes = "Add new subject to the stream")
-    public ResponseEntity<?> removeSubject(@RequestBody Subject removeSubject) {
+    public ResponseEntity<?> removeSubject(
+            @RequestBody Subject removeSubject,
+            @RequestHeader(value = AUTHORIZATION) String accessToken) {
 
-        String id = "1";
+        String token = accessToken.substring(7);
+        String id = getClintId(token);
+
         Optional<Stream> stream = streamRepository.findById(id);
         if (stream.isPresent()) {
             Stream streamSelect = stream.get();
@@ -248,9 +275,11 @@ public class StreamController {
     //Verification
     @PostMapping("verify")
     @ApiOperation(value = "", notes = "Remove existing subject from the stream")
-    public ResponseEntity<? extends Object> verification() {
+    public ResponseEntity<? extends Object> verification(@RequestHeader(value = AUTHORIZATION) String accessToken) {
 
-        String id = "1";
+        String token = accessToken.substring(7);
+        String id = getClintId(token);
+
         Optional<Stream> stream = streamRepository.findById(id);
         if (stream.isPresent()) {
             Stream getStream = new Stream(
@@ -263,4 +292,21 @@ public class StreamController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
+
+    //get client id
+    private String getClintId(String token) {
+
+        String requestBody = "token=" + token;
+
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBasicAuth("admin", "admin");
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        HttpEntity<String> entity = new HttpEntity<>(requestBody, headers);
+        String result = restTemplate.postForObject(introspectionUri, entity, String.class);
+
+        String temp = result.substring(result.indexOf("client_id") + 12);
+        return temp.substring(0, temp.indexOf("\""));
+    }
 }
+
