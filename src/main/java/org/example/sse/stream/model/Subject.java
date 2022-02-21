@@ -31,17 +31,18 @@ public class Subject {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String format, email, iss, phoneNumber;
 
-    public Subject(String format, String detail) {
+    public Subject(String format, String email) {
         this.format = format;
-        if (format.equals("email")) {
-            this.email = detail;
-        }
-        if (format.equals("iss_sub")) {
-            this.iss = detail;
-        }
-        if (format.equals("phone")) {
-            this.phoneNumber = detail;
-        }
+        this.email = email;
+//        if (format.equals("email")) {
+//            this.email = detail;
+//        }
+//        if (format.equals("iss_sub")) {
+//            this.iss = detail;
+//        }
+//        if (format.equals("phone")) {
+//            this.phoneNumber = detail;
+//        }
     }
 
     public String getFormat() {

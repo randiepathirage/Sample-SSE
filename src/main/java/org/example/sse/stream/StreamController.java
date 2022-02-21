@@ -58,8 +58,6 @@ public class StreamController {
             //@RequestHeader(value = AUTHORIZATION) String accessToken
     ) {
 
-        //log.println(accessToken);
-
         String id = "1";
         Optional<Stream> stream = streamRepository.findById(id);
         if (stream.isPresent()) {
@@ -85,13 +83,22 @@ public class StreamController {
 
         String id = "1";
         Optional<Stream> stream = streamRepository.findById(id);
+
         if (stream.isPresent()) {
             Stream streamUpdate = stream.get();
             streamUpdate.setId(id);
             streamUpdate.setEventsRequested(config.getEventsRequested());
             streamUpdate.setDelivery(config.getDelivery());
             streamRepository.save(streamUpdate);
-            return new ResponseEntity<>(streamUpdate, HttpStatus.OK);
+            Stream updatedStream = new Stream(
+                    streamUpdate.getIss(),
+                    streamUpdate.getAud(),
+                    streamUpdate.getDelivery(),
+                    streamUpdate.getEventsSupported(),
+                    streamUpdate.getEventsRequested(),
+                    streamUpdate.getEventsDelivered()
+            );
+            return new ResponseEntity<>(updatedStream, HttpStatus.OK);
         } else {
             try {
                 config.setId("1");
@@ -101,7 +108,15 @@ public class StreamController {
                 config.seteventsDelivered(Arrays.asList("urn:example:secevent:events:type_2",
                         "urn:example:secevent:events:type_3", "urn:example:secevent:events:type_4"));
                 streamRepository.save(config);
-                return new ResponseEntity<>(config, HttpStatus.OK);
+                Stream createdStream = new Stream(
+                        config.getIss(),
+                        config.getAud(),
+                        config.getDelivery(),
+                        config.getEventsSupported(),
+                        config.getEventsRequested(),
+                        config.getEventsDelivered()
+                );
+                return new ResponseEntity<>(createdStream, HttpStatus.OK);
             } catch (Exception e) {
                 return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
             }
@@ -172,10 +187,9 @@ public class StreamController {
         if (stream.isPresent()) {
             Stream streamUpdate = stream.get();
             List<Subject> newSubjects = new ArrayList<>();
-            try {
-                newSubjects.addAll(streamUpdate.getSubjects());
-            } catch (Exception e) {
 
+            if (streamUpdate.getSubjects() != null) {
+                newSubjects.addAll(streamUpdate.getSubjects());
             }
             newSubjects.add(subject);
             streamUpdate.setSubjects(newSubjects);
@@ -201,13 +215,13 @@ public class StreamController {
             } catch (Exception e) {
 
             }
-            int flag = 0;
-//            for (int i = 0; i < newSubjects.size(); i++) {
-//                if (removeSubject.getFormat().equals(newSubjects.get(i).getFormat())) {
-//                    if (removeSubject.getEmail().equals(newSubjects.get(i).getEmail())) {
-//                        flag = i;
-//                        break;
-//                    }
+            int flag = -1;
+            for (int i = 0; i < newSubjects.size(); i++) {
+                if (removeSubject.getFormat().equals(newSubjects.get(i).getFormat())) {
+                    if (removeSubject.getEmail().equals(newSubjects.get(i).getEmail())) {
+                        flag = i;
+                        break;
+                    }
 //                    if (removeSubject.getIss().equals(newSubjects.get(i).getIss())) {
 //                        flag = i;
 //                        break;
@@ -215,17 +229,20 @@ public class StreamController {
 //                    if (removeSubject.getPhone_number().equals(newSubjects.get(i).getPhone_number())) {
 //                        flag = i;
 //                        break;
-//                    }
-//                }
-//            }
-            newSubjects.remove(flag);
-            streamSelect.setSubjects(newSubjects);
-            streamRepository.save(streamSelect);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//                   }
+                }
+            }
+            if (flag != -1) {
+                newSubjects.remove(flag);
+                streamSelect.setSubjects(newSubjects);
+                streamRepository.save(streamSelect);
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
     }
 
     //Verification
