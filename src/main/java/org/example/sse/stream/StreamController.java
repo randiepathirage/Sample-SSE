@@ -67,9 +67,9 @@ public class StreamController {
                     stream.get().getIss(),
                     stream.get().getAud(),
                     stream.get().getDelivery(),
-                    stream.get().getEvents_supported(),
-                    stream.get().getEvents_requested(),
-                    stream.get().getEvents_delivered()
+                    stream.get().getEventsSupported(),
+                    stream.get().getEventsRequested(),
+                    stream.get().getEventsDelivered()
             );
             return new ResponseEntity<>(getStream, HttpStatus.OK);
         } else {
@@ -88,7 +88,7 @@ public class StreamController {
         if (stream.isPresent()) {
             Stream streamUpdate = stream.get();
             streamUpdate.setId(id);
-            streamUpdate.setEvents_requested(config.getEvents_requested());
+            streamUpdate.setEventsRequested(config.getEventsRequested());
             streamUpdate.setDelivery(config.getDelivery());
             streamRepository.save(streamUpdate);
             return new ResponseEntity<>(streamUpdate, HttpStatus.OK);
@@ -96,9 +96,9 @@ public class StreamController {
             try {
                 config.setId("1");
                 config.setStatus("enabled");
-                config.setEvents_supported(Arrays.asList("urn:example:secevent:events:type_1",
+                config.seteventsSupported(Arrays.asList("urn:example:secevent:events:type_1",
                         "urn:example:secevent:events:type_2", "urn:example:secevent:events:type_3"));
-                config.setEvents_delivered(Arrays.asList("urn:example:secevent:events:type_2",
+                config.seteventsDelivered(Arrays.asList("urn:example:secevent:events:type_2",
                         "urn:example:secevent:events:type_3", "urn:example:secevent:events:type_4"));
                 streamRepository.save(config);
                 return new ResponseEntity<>(config, HttpStatus.OK);
@@ -120,7 +120,7 @@ public class StreamController {
         if (stream.isPresent()) {
             Stream streamDelete = stream.get();
             streamDelete.setId(id);
-            streamDelete.setEvents_requested(null);
+            streamDelete.setEventsRequested(null);
             streamDelete.setDelivery(null);
             streamRepository.save(streamDelete);
             return new ResponseEntity<>(HttpStatus.OK);
@@ -239,30 +239,11 @@ public class StreamController {
             Stream getStream = new Stream(
                     stream.get().getIss(),
                     stream.get().getAud(),
-                    stream.get().getEvents_delivered()
+                    stream.get().getEventsDelivered()
             );
             return new ResponseEntity<>(getStream, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
-
-//    @PostMapping("auth")
-//    public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest)
-//            throws Exception {
-//        try {
-//            authenticationManager.authenticate(
-//                    new UsernamePasswordAuthenticationToken(authenticationRequest.getClintID(),
-//                            authenticationRequest.getSecret())
-//            );
-//        } catch (BadCredentialsException e) {
-//            throw new Exception("Incorrect username or password", e);
-//        }
-//        final UserDetails userDetails = receiverDetailsService
-//                .loadUserByUsername(authenticationRequest.getClintID());
-//
-//        final String jwt = jwtUtil.generateToken(userDetails);
-//
-//        return ResponseEntity.ok(new AuthenticationResponse(jwt));
-//    }
 }

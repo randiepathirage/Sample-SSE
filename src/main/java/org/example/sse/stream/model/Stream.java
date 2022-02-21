@@ -19,6 +19,8 @@
 package org.example.sse.stream.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -28,6 +30,7 @@ import java.util.List;
  * Stream details model.
  */
 @Document(collation = "Stream")
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class Stream {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -38,7 +41,7 @@ public class Stream {
     private String id;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private List<String> aud, delivery, events_supported, events_requested, events_delivered;
+    private List<String> aud, delivery, eventsSupported, eventsRequested, eventsDelivered;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<Subject> subjects;
@@ -57,57 +60,57 @@ public class Stream {
     }
 
     public Stream(String id, String iss, String status, List<String> aud, List<String> delivery,
-                  List<String> events_supported, List<String> events_requested,
-                  List<String> events_delivered, List<Subject> subjects) {
+                  List<String> eventsSupported, List<String> eventsRequested,
+                  List<String> eventsDelivered, List<Subject> subjects) {
         this.id = id;
         this.iss = iss;
         this.status = status;
         this.aud = aud;
         this.delivery = delivery;
-        this.events_supported = events_supported;
-        this.events_requested = events_requested;
-        this.events_delivered = events_delivered;
+        this.eventsSupported = eventsSupported;
+        this.eventsRequested = eventsRequested;
+        this.eventsDelivered = eventsDelivered;
         this.subjects = subjects;
     }
 
-    public Stream(String iss, List<String> aud, List<String> delivery, List<String> events_supported,
-                  List<String> events_requested, List<String> events_delivered) {
+    public Stream(String iss, List<String> aud, List<String> delivery, List<String> eventsSupported,
+                  List<String> eventsRequested, List<String> eventsDelivered) {
         this.id = id;
         this.iss = iss;
         this.aud = aud;
         this.delivery = delivery;
-        this.events_supported = events_supported;
-        this.events_requested = events_requested;
-        this.events_delivered = events_delivered;
+        this.eventsSupported = eventsSupported;
+        this.eventsRequested = eventsRequested;
+        this.eventsDelivered = eventsDelivered;
     }
 
-    public Stream(String id, String iss, List<String> aud, List<String> delivery, List<String> events_requested) {
+    public Stream(String id, String iss, List<String> aud, List<String> delivery, List<String> eventsRequested) {
         this.id = id;
         this.iss = iss;
         this.aud = aud;
         this.delivery = delivery;
-        this.events_requested = events_requested;
+        this.eventsRequested = eventsRequested;
     }
 
     public Stream(String id, String iss, String status, List<String> aud, List<String> delivery,
-                  List<String> events_supported,
-                  List<String> events_requested, List<String> events_delivered) {
+                  List<String> eventsSupported,
+                  List<String> eventsRequested, List<String> eventsDelivered) {
         this.id = id;
         this.iss = iss;
         this.status = status;
         this.aud = aud;
         this.delivery = delivery;
-        this.events_supported = events_supported;
-        this.events_requested = events_requested;
-        this.events_delivered = events_delivered;
+        this.eventsSupported = eventsSupported;
+        this.eventsRequested = eventsRequested;
+        this.eventsDelivered = eventsDelivered;
     }
 
-    public void setEvents_supported(List<String> events_supported) {
-        this.events_supported = events_supported;
+    public void seteventsSupported(List<String> eventsSupported) {
+        this.eventsSupported = eventsSupported;
     }
 
-    public void setEvents_delivered(List<String> events_delivered) {
-        this.events_delivered = events_delivered;
+    public void seteventsDelivered(List<String> eventsDelivered) {
+        this.eventsDelivered = eventsDelivered;
     }
 
     public String getId() {
@@ -142,20 +145,20 @@ public class Stream {
         this.delivery = delivery;
     }
 
-    public List<String> getEvents_supported() {
-        return events_supported;
+    public List<String> getEventsSupported() {
+        return eventsSupported;
     }
 
-    public List<String> getEvents_requested() {
-        return events_requested;
+    public List<String> getEventsRequested() {
+        return eventsRequested;
     }
 
-    public void setEvents_requested(List<String> events_requested) {
-        this.events_requested = events_requested;
+    public void setEventsRequested(List<String> eventsRequested) {
+        this.eventsRequested = eventsRequested;
     }
 
-    public List<String> getEvents_delivered() {
-        return events_delivered;
+    public List<String> getEventsDelivered() {
+        return eventsDelivered;
     }
 
     public List<Subject> getSubjects() {

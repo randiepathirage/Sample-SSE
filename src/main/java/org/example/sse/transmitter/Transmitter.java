@@ -18,6 +18,8 @@
 
 package org.example.sse.transmitter;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
@@ -26,29 +28,30 @@ import java.util.List;
  * Represents transmitter model.
  */
 @Document("Transmitter")
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class Transmitter {
 
     private String issuer;
-    private String jwks_uri, add_subject_endpoint, remove_subject_endpoint, verification_endpoint,
-            status_endpoint, configuration_endpoint;
-    private List<String> critical_subject_members, delivery_methods_supported;
+    private String jwksUri, addSubjectEndpoint, removeSubjectEndpoint, verificationEndpoint,
+            statusEndpoint, configurationEndpoint;
+    private List<String> criticalSubjectMembers, deliveryMethodsSupported;
 
     public Transmitter() {
     }
 
-    public Transmitter(String issuer, String jwks_uri, String add_subject_endpoint, String remove_subject_endpoint,
-                       String verification_endpoint, String status_endpoint, String configuration_endpoint,
-                       List<String> critical_subject_members,
-                       List<String> delivery_methods_supported) {
+    public Transmitter(String issuer, String jwksUri, String addSubjectEndpoint, String removeSubjectEndpoint,
+                       String verificationEndpoint, String statusEndpoint, String configurationEndpoint,
+                       List<String> criticalSubjectMembers,
+                       List<String> deliveryMethodsSupported) {
         this.issuer = issuer;
-        this.jwks_uri = jwks_uri;
-        this.add_subject_endpoint = add_subject_endpoint;
-        this.remove_subject_endpoint = remove_subject_endpoint;
-        this.verification_endpoint = verification_endpoint;
-        this.status_endpoint = status_endpoint;
-        this.configuration_endpoint = configuration_endpoint;
-        this.critical_subject_members = critical_subject_members;
-        this.delivery_methods_supported = delivery_methods_supported;
+        this.jwksUri = jwksUri;
+        this.addSubjectEndpoint = addSubjectEndpoint;
+        this.removeSubjectEndpoint = removeSubjectEndpoint;
+        this.verificationEndpoint = verificationEndpoint;
+        this.statusEndpoint = statusEndpoint;
+        this.configurationEndpoint = configurationEndpoint;
+        this.criticalSubjectMembers = criticalSubjectMembers;
+        this.deliveryMethodsSupported = deliveryMethodsSupported;
     }
 
     public String getIssuer() {
@@ -59,82 +62,82 @@ public class Transmitter {
         this.issuer = issuer;
     }
 
-    public String getJwks_uri() {
-        return jwks_uri;
+    public String getJwksUri() {
+        return jwksUri;
     }
 
-    public void setJwks_uri(String jwks_uri) {
-        this.jwks_uri = jwks_uri;
+    public void setJwksUri(String jwksUri) {
+        this.jwksUri = jwksUri;
     }
 
-    public String getAdd_subject_endpoint() {
-        return add_subject_endpoint;
+    public String getAddSubjectEndpoint() {
+        return addSubjectEndpoint;
     }
 
-    public void setAdd_subject_endpoint(String add_subject_endpoint) {
-        this.add_subject_endpoint = add_subject_endpoint;
+    public void setAddSubjectEndpoint(String addSubjectEndpoint) {
+        this.addSubjectEndpoint = addSubjectEndpoint;
     }
 
-    public String getRemove_subject_endpoint() {
-        return remove_subject_endpoint;
+    public String getRemoveSubjectEndpoint() {
+        return removeSubjectEndpoint;
     }
 
-    public void setRemove_subject_endpoint(String remove_subject_endpoint) {
-        this.remove_subject_endpoint = remove_subject_endpoint;
+    public void setRemoveSubjectEndpoint(String removeSubjectEndpoint) {
+        this.removeSubjectEndpoint = removeSubjectEndpoint;
     }
 
-    public String getVerification_endpoint() {
-        return verification_endpoint;
+    public String getVerificationEndpoint() {
+        return verificationEndpoint;
     }
 
-    public void setVerification_endpoint(String verification_endpoint) {
-        this.verification_endpoint = verification_endpoint;
+    public void setVerificationEndpoint(String verificationEndpoint) {
+        this.verificationEndpoint = verificationEndpoint;
     }
 
-    public String getStatus_endpoint() {
-        return status_endpoint;
+    public String getStatusEndpoint() {
+        return statusEndpoint;
     }
 
-    public void setStatus_endpoint(String status_endpoint) {
-        this.status_endpoint = status_endpoint;
+    public void setStatusEndpoint(String statusEndpoint) {
+        this.statusEndpoint = statusEndpoint;
     }
 
-    public List<String> getCritical_subject_members() {
-        return critical_subject_members;
+    public List<String> getCriticalSubjectMembers() {
+        return criticalSubjectMembers;
     }
 
-    public void setCritical_subject_members(List<String> critical_subject_members) {
-        this.critical_subject_members = critical_subject_members;
+    public void setCriticalSubjectMembers(List<String> criticalSubjectMembers) {
+        this.criticalSubjectMembers = criticalSubjectMembers;
     }
 
-    public List<String> getDelivery_methods_supported() {
-        return delivery_methods_supported;
+    public List<String> getDeliveryMethodsSupported() {
+        return deliveryMethodsSupported;
     }
 
-    public void setDelivery_methods_supported(List<String> delivery_methods_supported) {
-        this.delivery_methods_supported = delivery_methods_supported;
+    public void setDeliveryMethodsSupported(List<String> deliveryMethodsSupported) {
+        this.deliveryMethodsSupported = deliveryMethodsSupported;
     }
 
-    public String getConfiguration_endpoint() {
-        return configuration_endpoint;
+    public String getConfigurationEndpoint() {
+        return configurationEndpoint;
     }
 
-    public void setConfiguration_endpoint(String configuration_endpoint) {
-        this.configuration_endpoint = configuration_endpoint;
+    public void setConfigurationEndpoint(String configurationEndpoint) {
+        this.configurationEndpoint = configurationEndpoint;
     }
 
     @Override
     public String toString() {
         return "Transmitter{" +
                 "issuer='" + issuer + '\'' +
-                ", jwks_uri='" + jwks_uri + '\'' +
-                ", add_subject_endpoint='" + add_subject_endpoint + '\'' +
-                ", remove_subject_endpoint='" + remove_subject_endpoint + '\'' +
-                ", verification_endpoint='" + verification_endpoint + '\'' +
-                ", status_endpoint='" + status_endpoint + '\'' +
-                ", configuration_endpoint='" + configuration_endpoint + '\'' +
-                ", critical_subject_members=" + critical_subject_members +
-                ", delivery_methods_supported=" + delivery_methods_supported +
+                ", jwksUri='" + jwksUri + '\'' +
+                ", addSubjectEndpoint='" + addSubjectEndpoint + '\'' +
+                ", removeSubjectEndpoint='" + removeSubjectEndpoint + '\'' +
+                ", verificationEndpoint='" + verificationEndpoint + '\'' +
+                ", statusEndpoint='" + statusEndpoint + '\'' +
+                ", configurationEndpoint='" + configurationEndpoint + '\'' +
+                ", criticalSubjectMembers=" + criticalSubjectMembers +
+                ", deliveryMethodsSupported=" + deliveryMethodsSupported +
                 '}';
     }
 }

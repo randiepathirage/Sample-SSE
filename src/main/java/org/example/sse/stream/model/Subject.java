@@ -19,14 +19,17 @@
 package org.example.sse.stream.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 /**
  * subject details model.
  */
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class Subject {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String format, email, iss, phone_number;
+    private String format, email, iss, phoneNumber;
 
     public Subject(String format, String detail) {
         this.format = format;
@@ -37,7 +40,7 @@ public class Subject {
             this.iss = detail;
         }
         if (format.equals("phone")) {
-            this.phone_number = detail;
+            this.phoneNumber = detail;
         }
     }
 
@@ -66,10 +69,10 @@ public class Subject {
     }
 
     public String getPhone_number() {
-        return phone_number;
+        return phoneNumber;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setPhone_number(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }
