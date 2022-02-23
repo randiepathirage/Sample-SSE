@@ -65,8 +65,7 @@ public class StreamController {
     @GetMapping("stream")
     @ApiOperation(value = "", notes = "Retrieve current stream configuration")
     public ResponseEntity<?> getConfiguration(
-            @RequestHeader(value = AUTHORIZATION) String accessToken
-    ) {
+            @RequestHeader(value = AUTHORIZATION) String accessToken) {
 
         String token = accessToken.substring(7);
         String id = getClintId(token);
@@ -306,6 +305,7 @@ public class StreamController {
         String result = restTemplate.postForObject(introspectionUri, entity, String.class);
 
         String temp = result.substring(result.indexOf("client_id") + 12);
+
         return temp.substring(0, temp.indexOf("\""));
     }
 }

@@ -21,6 +21,7 @@ package org.example.sse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
@@ -28,6 +29,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  * Security layer configuration.
  */
 @Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Value("${spring.security.oauth2.resourceserver.opaque.introspection-uri}")
@@ -43,10 +45,33 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests(authz -> authz
-                        .antMatchers(HttpMethod.GET, "/sse/").hasAuthority("internal_login")
-                        .antMatchers(HttpMethod.POST, "/sse/").hasAuthority("internal_login")
-                        .antMatchers("/.well-known/sse-configuration").permitAll()
-                        .anyRequest().authenticated())
+                        .antMatchers(HttpMethod.GET, "/sse/status")
+                        .hasAuthority("SCOPE_status_read")
+
+                        .antMatchers(HttpMethod.POST, "/sse/status")
+                        .hasAuthority("SCOPE_status_write")
+
+                        .antMatchers(HttpMethod.GET, "/sse/stream")
+                        .hasAuthority("SCOPE_stream_read")
+
+                        .antMatchers(HttpMethod.POST, "/sse/stream")
+                        .hasAuthority("SCOPE_stream_write")
+
+                        .antMatchers(HttpMethod.DELETE, "/sse/stream")
+                        .hasAuthority("SCOPE_stream_write")
+
+                        .antMatchers(HttpMethod.POST, "/sse/subjects:add")
+                        .hasAuthority("SCOPE_add_subject")
+
+                        .antMatchers(HttpMethod.POST, "/sse/subjects:remove")
+                        .hasAuthority("SCOPE_remove_subject")
+
+                        .antMatchers(HttpMethod.POST, "/sse/verify")
+                        .hasAuthority("SCOPE_verify")
+
+                        .antMatchers("/.well-known/sse-configuration")
+                        .permitAll()
+                )
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .opaqueToken(token -> token.introspectionUri(this.introspectionUri)
                                 .introspectionClientCredentials(this.clientId, this.clientSecret)));
