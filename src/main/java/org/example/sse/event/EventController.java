@@ -20,10 +20,16 @@ package org.example.sse.event;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * Controller class for event delivery endpoints.
@@ -45,6 +51,20 @@ public class EventController {
     public void addEvent(@RequestBody EventEn token) {
 
         eventRepository.save(token);
+    }
+
+    //retrieve events
+    @GetMapping
+    @ApiOperation(value = "", notes = "Retrieve events by subject")
+    public ResponseEntity<?> getEvent(@RequestHeader("subject") String subject) {
+
+        List<EventEn> eventEn = eventRepository.findBySubject(subject);
+        if (eventEn.size() > 0) {
+
+            return new ResponseEntity<>(eventEn, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 }
 

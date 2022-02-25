@@ -20,8 +20,11 @@ package org.example.sse.event;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
+import java.util.List;
+
 /**
  * Represents data access layer of event poll.
  */
 public interface EventRepository extends MongoRepository<EventEn, String> {
+    List<EventEn> findBySubject(String subject);
 }

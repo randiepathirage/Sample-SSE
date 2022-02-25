@@ -26,13 +26,22 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "Event")
 public class EventEn {
 
-    private String token;
+    private String token, subject;
 
     public EventEn() {
     }
 
-    public EventEn(String token) {
+    public EventEn(String token, String subject) {
         this.token = token;
+        this.subject = subject;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
     public String getToken() {
