@@ -44,33 +44,44 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
 
-        http.authorizeRequests(authz -> authz
-                        .antMatchers(HttpMethod.GET, "/sse/status")
-                        .hasAuthority("SCOPE_status_read")
+        http.authorizeRequests(authz -> {
+                            try {
+                                authz
+                                        .antMatchers(HttpMethod.GET, "/sse/status")
+                                        .hasAuthority("SCOPE_status_read")
 
-                        .antMatchers(HttpMethod.POST, "/sse/status")
-                        .hasAuthority("SCOPE_status_write")
+                                        .antMatchers(HttpMethod.POST, "/sse/status")
+                                        .hasAuthority("SCOPE_status_write")
 
-                        .antMatchers(HttpMethod.GET, "/sse/stream")
-                        .hasAuthority("SCOPE_stream_read")
+                                        .antMatchers(HttpMethod.GET, "/sse/stream")
+                                        .hasAuthority("SCOPE_stream_read")
 
-                        .antMatchers(HttpMethod.POST, "/sse/stream")
-                        .hasAuthority("SCOPE_stream_write")
+                                        .antMatchers(HttpMethod.POST, "/sse/stream")
+                                        .hasAuthority("SCOPE_stream_write")
 
-                        .antMatchers(HttpMethod.DELETE, "/sse/stream")
-                        .hasAuthority("SCOPE_stream_write")
+                                        .antMatchers(HttpMethod.DELETE, "/sse/stream")
+                                        .hasAuthority("SCOPE_stream_write")
 
-                        .antMatchers(HttpMethod.POST, "/sse/subjects:add")
-                        .hasAuthority("SCOPE_add_subject")
+                                        .antMatchers(HttpMethod.POST, "/sse/subjects:add")
+                                        .hasAuthority("SCOPE_add_subject")
 
-                        .antMatchers(HttpMethod.POST, "/sse/subjects:remove")
-                        .hasAuthority("SCOPE_remove_subject")
+                                        .antMatchers(HttpMethod.POST, "/sse/subjects:remove")
+                                        .hasAuthority("SCOPE_remove_subject")
 
-                        .antMatchers(HttpMethod.POST, "/sse/verify")
-                        .hasAuthority("SCOPE_verify")
+                                        .antMatchers(HttpMethod.POST, "/sse/verify")
+                                        .hasAuthority("SCOPE_verify")
 
-                        .antMatchers("/.well-known/sse-configuration")
-                        .permitAll()
+                                        .antMatchers("/.well-known/sse-configuration")
+                                        .permitAll()
+
+                                        .and()
+                                        .csrf().disable().authorizeRequests()
+                                        .antMatchers(HttpMethod.POST, "/event").permitAll();
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .opaqueToken(token -> token.introspectionUri(this.introspectionUri)
