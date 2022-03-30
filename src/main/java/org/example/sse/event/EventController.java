@@ -48,7 +48,7 @@ public class EventController {
     //add event to database
     @PostMapping
     @ApiOperation(value = "", notes = "Add events to database")
-    public void addEvent(@RequestBody EventEn token) {
+    public void addEvent(@RequestBody Event token) {
 
         eventRepository.save(token);
     }
@@ -58,10 +58,10 @@ public class EventController {
     @ApiOperation(value = "", notes = "Retrieve events by subject")
     public ResponseEntity<?> getEvent(@RequestHeader("subject") String subject) {
 
-        List<EventEn> eventEn = eventRepository.findBySubject(subject);
-        if (eventEn.size() > 0) {
+        List<Event> event = eventRepository.findBySubject(subject);
+        if (event.size() > 0) {
 
-            return new ResponseEntity<>(eventEn, HttpStatus.OK);
+            return new ResponseEntity<>(event, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }

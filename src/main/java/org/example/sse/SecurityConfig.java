@@ -72,11 +72,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                         .hasAuthority("SCOPE_verify")
 
                                         .antMatchers("/.well-known/sse-configuration")
-                                        .permitAll()
+                                        .permitAll();
 
-                                        .and()
-                                        .csrf().disable().authorizeRequests()
-                                        .antMatchers("/event").permitAll();
+//                                        .and()
+//                                        .csrf().disable().authorizeRequests()
+//                                        .antMatchers("/event").permitAll();
 
                             } catch (Exception e) {
                                 e.printStackTrace();

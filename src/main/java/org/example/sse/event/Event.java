@@ -18,9 +18,54 @@
 
 package org.example.sse.event;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
 /**
  * event details model.
  */
+@Document(collection = "Event")
 public class Event {
-    //{user-name=bob, tenantId=-1234, CREDENTIAL=bob123, tenant-domain=carbon.super, userStoreManager=org.wso2.carbon.user.core.ldap.UniqueIDReadWriteLDAPUserStoreManager@1a2e528e}
+
+    private String token, subject, eventType;
+
+    public Event() {
+    }
+
+    public Event(String token, String subject, String eventType) {
+        this.token = token;
+        this.subject = subject;
+        this.eventType = eventType;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getEventType() {
+        return eventType;
+    }
+
+    public void setEventType(String eventType) {
+        this.eventType = eventType;
+    }
 }
+
+//{
+// user-name=bob,
+// tenantId=-1234,
+// CREDENTIAL=bob123,
+// tenant-domain=carbon.super,
+// userStoreManager=org.wso2.carbon.user.core.ldap.UniqueIDReadWriteLDAPUserStoreManager@1a2e528e
+// }

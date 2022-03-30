@@ -25,6 +25,6 @@ import java.util.List;
 /**
  * Represents data access layer of event poll.
  */
-public interface EventRepository extends MongoRepository<EventEn, String> {
-    List<EventEn> findBySubject(String subject);
+public interface EventRepository extends MongoRepository<Event, String> {
+    List<Event> findBySubject(String subject);
 }

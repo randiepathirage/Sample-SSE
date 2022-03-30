@@ -65,8 +65,8 @@ public class StreamController {
     @GetMapping("stream")
     @ApiOperation(value = "", notes = "Retrieve current stream configuration")
     public ResponseEntity<?> getConfiguration(
-            @RequestHeader(value = AUTHORIZATION) String accessToken) {
-
+            @RequestHeader(value = AUTHORIZATION) String accessToken
+    ) {
         String token = accessToken.substring(7);
         String id = getClintId(token);
         Optional<Stream> stream = streamRepository.findById(id);
@@ -79,6 +79,7 @@ public class StreamController {
                     stream.get().getEventsRequested(),
                     stream.get().getEventsDelivered()
             );
+
             return new ResponseEntity<>(getStream, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -299,7 +300,7 @@ public class StreamController {
 
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
-        headers.setBasicAuth("admin", "admin");
+        headers.setBasicAuth("admin@wso2.com", "admin");
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         HttpEntity<String> entity = new HttpEntity<>(requestBody, headers);
         String result = restTemplate.postForObject(introspectionUri, entity, String.class);
