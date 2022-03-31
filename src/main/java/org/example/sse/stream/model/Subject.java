@@ -29,20 +29,11 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 public class Subject {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String format, email, iss, phoneNumber;
+    private String format, email;
 
     public Subject(String format, String email) {
         this.format = format;
         this.email = email;
-//        if (format.equals("email")) {
-//            this.email = detail;
-//        }
-//        if (format.equals("iss_sub")) {
-//            this.iss = detail;
-//        }
-//        if (format.equals("phone")) {
-//            this.phoneNumber = detail;
-//        }
     }
 
     public String getFormat() {
@@ -61,19 +52,4 @@ public class Subject {
         this.email = email;
     }
 
-    public String getIss() {
-        return iss;
-    }
-
-    public void setIss(String iss) {
-        this.iss = iss;
-    }
-
-    public String getPhone_number() {
-        return phoneNumber;
-    }
-
-    public void setPhone_number(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
 }

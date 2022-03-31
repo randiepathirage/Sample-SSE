@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 2022, WSO2 Inc. (http://www.wso2.com).
  *
@@ -26,15 +27,15 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "Event")
 public class Event {
 
-    private String token, subject, eventType;
+    private String token, subject, event;
 
     public Event() {
     }
 
-    public Event(String token, String subject, String eventType) {
+    public Event(String subject, String event, String token) {
         this.token = token;
         this.subject = subject;
-        this.eventType = eventType;
+        this.event = event;
     }
 
     public String getSubject() {
@@ -53,19 +54,12 @@ public class Event {
         this.token = token;
     }
 
-    public String getEventType() {
-        return eventType;
+    public String getEvent() {
+        return event;
     }
 
-    public void setEventType(String eventType) {
-        this.eventType = eventType;
+    public void setEvent(String event) {
+        this.event = event;
     }
 }
 
-//{
-// user-name=bob,
-// tenantId=-1234,
-// CREDENTIAL=bob123,
-// tenant-domain=carbon.super,
-// userStoreManager=org.wso2.carbon.user.core.ldap.UniqueIDReadWriteLDAPUserStoreManager@1a2e528e
-// }
