@@ -20,11 +20,19 @@ package org.example.sse.stream;
 
 import org.example.sse.stream.model.Stream;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * Represents data access layer of management API.
  */
 @Repository
 public interface StreamRepository extends MongoRepository<Stream, String> {
+
+    List<Stream> findBySubjects(String email);
+
+    @Query(value = "{ 'eventsRequested' : ?0, 'subjects.email' : ?1 }")
+    List<Stream> findByEventsRequestedAndSubjectsEmail(String event, String email);
 }

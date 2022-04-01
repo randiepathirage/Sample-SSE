@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * Stream details model.
  */
-@Document(collation = "Stream")
+@Document(collection = "Stream")
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class Stream {
 

@@ -19,7 +19,10 @@
 package org.example.sse.event;
 
 import io.swagger.annotations.ApiOperation;
+import org.example.sse.stream.StreamRepository;
+import org.example.sse.stream.model.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,10 +42,12 @@ import java.util.List;
 public class EventController {
 
     private final EventRepository eventRepository;
+    private final StreamRepository streamRepository;
 
     @Autowired
-    public EventController(EventRepository eventRepository) {
+    public EventController(EventRepository eventRepository, StreamRepository streamRepository) {
         this.eventRepository = eventRepository;
+        this.streamRepository = streamRepository;
     }
 
     //add event to database
@@ -51,6 +56,16 @@ public class EventController {
     public void addEvent(@RequestBody Event token) {
 
         eventRepository.save(token);
+
+        //check whether there are streams subscribed to this event
+        List<Stream> stream = streamRepository.findByEventsRequestedAndSubjectsEmail(token.getEvent(),
+                token.getSubject());
+        if (stream.size() > 0) {
+            Stream stream1 = stream.get(0);
+            System.out.println(stream1.getIss());
+        } else {
+            System.out.println("not found");
+        }
     }
 
     //retrieve events
