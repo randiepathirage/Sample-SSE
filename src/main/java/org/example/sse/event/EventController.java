@@ -25,12 +25,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
@@ -53,16 +56,27 @@ public class EventController {
     //add event to database
     @PostMapping
     @ApiOperation(value = "", notes = "Add events to database")
-    public void addEvent(@RequestBody Event token) {
+    public void addEvent(@RequestBody Event event) {
 
-        eventRepository.save(token);
+        eventRepository.save(event);
 
         //check whether there are streams subscribed to this event
-        List<Stream> stream = streamRepository.findByEventsRequestedAndSubjectsEmail(token.getEvent(),
-                token.getSubject());
-        if (stream.size() > 0) {
-            Stream stream1 = stream.get(0);
-            System.out.println(stream1.getIss());
+        List<Stream> streams = streamRepository.findByEventsRequestedAndSubjectsEmail(event.getEvent(),
+                event.getSubject());
+        if (streams.size() > 0) {
+
+            MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+            map.add("token", event.getToken());
+
+            for (int j = 0; streams.size() > j; j++) {
+                Stream stream = streams.get(j);
+                for (int i = 0; stream.getAud().size() > i; i++) {
+                    String uri = stream.getAud().get(i);
+                    RestTemplate restTemplate = new RestTemplate();
+                    String result = restTemplate.postForObject(uri, map, String.class);
+                }
+            }
+
         } else {
             System.out.println("not found");
         }
@@ -81,5 +95,6 @@ public class EventController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
+
 }
 
