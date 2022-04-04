@@ -57,16 +57,14 @@ public class StreamController {
     private final StreamRepository streamRepository;
 
     public StreamController(StreamRepository streamRepository) {
-
         this.streamRepository = streamRepository;
     }
 
     //get stream Configuration
     @GetMapping("stream")
     @ApiOperation(value = "", notes = "Retrieve current stream configuration")
-    public ResponseEntity<?> getConfiguration(
-            @RequestHeader(value = AUTHORIZATION) String accessToken
-    ) {
+    public ResponseEntity<?> getConfiguration(@RequestHeader(value = AUTHORIZATION) String accessToken) {
+
         String token = accessToken.substring(7);
         String id = getClintId(token);
         Optional<Stream> stream = streamRepository.findById(id);
@@ -96,7 +94,6 @@ public class StreamController {
 
         String token = accessToken.substring(7);
         String id = getClintId(token);
-
         Optional<Stream> stream = streamRepository.findById(id);
 
         if (stream.isPresent()) {
@@ -148,6 +145,7 @@ public class StreamController {
         String token = accessToken.substring(7);
         String id = getClintId(token);
         Optional<Stream> stream = streamRepository.findById(id);
+
         if (stream.isPresent()) {
             Stream streamDelete = stream.get();
             streamDelete.setId(id);
@@ -168,6 +166,7 @@ public class StreamController {
         String token = accessToken.substring(7);
         String id = getClintId(token);
         Optional<Stream> stream = streamRepository.findById(id);
+
         if (stream.isPresent()) {
             Stream status = new Stream(stream.get().getStatus());
             return new ResponseEntity<>(status, HttpStatus.OK);
@@ -186,6 +185,7 @@ public class StreamController {
         String token = accessToken.substring(7);
         String id = getClintId(token);
         Optional<Stream> stream = streamRepository.findById(id);
+
         if (stream.isPresent()) {
             Stream streamUpdate = stream.get();
             streamUpdate.setStatus(status.getStatus());
@@ -205,8 +205,8 @@ public class StreamController {
 
         String token = accessToken.substring(7);
         String id = getClintId(token);
-
         Optional<Stream> stream = streamRepository.findById(id);
+
         if (stream.isPresent()) {
             Stream streamUpdate = stream.get();
             List<Subject> newSubjects = new ArrayList<>();
@@ -232,8 +232,8 @@ public class StreamController {
 
         String token = accessToken.substring(7);
         String id = getClintId(token);
-
         Optional<Stream> stream = streamRepository.findById(id);
+
         if (stream.isPresent()) {
             Stream streamSelect = stream.get();
             List<Subject> newSubjects = new ArrayList<>();
@@ -279,8 +279,8 @@ public class StreamController {
 
         String token = accessToken.substring(7);
         String id = getClintId(token);
-
         Optional<Stream> stream = streamRepository.findById(id);
+
         if (stream.isPresent()) {
             Stream getStream = new Stream(
                     stream.get().getIss(),

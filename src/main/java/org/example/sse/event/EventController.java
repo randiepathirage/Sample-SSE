@@ -19,6 +19,7 @@
 package org.example.sse.event;
 
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.example.sse.stream.StreamRepository;
 import org.example.sse.stream.model.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(path = "event")
+@Slf4j
 public class EventController {
 
     private final EventRepository eventRepository;
@@ -63,6 +65,7 @@ public class EventController {
         //check whether there are streams subscribed to this event
         List<Stream> streams = streamRepository.findByEventsRequestedAndSubjectsEmail(event.getEvent(),
                 event.getSubject());
+
         if (streams.size() > 0) {
 
             MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
@@ -74,11 +77,11 @@ public class EventController {
                     String uri = stream.getAud().get(i);
                     RestTemplate restTemplate = new RestTemplate();
                     String result = restTemplate.postForObject(uri, map, String.class);
+                    log.info("Session invalidated successfully");
                 }
             }
-
         } else {
-            System.out.println("not found");
+            log.info("No stream found");
         }
     }
 
@@ -95,6 +98,4 @@ public class EventController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
-
 }
-

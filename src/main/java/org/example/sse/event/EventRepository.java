@@ -27,5 +27,4 @@ import java.util.List;
  */
 public interface EventRepository extends MongoRepository<Event, String> {
     List<Event> findBySubject(String subject);
-
 }

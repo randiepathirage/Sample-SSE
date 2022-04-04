@@ -31,9 +31,8 @@ import java.util.List;
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class Transmitter {
 
-    private String issuer;
-    private String jwksUri, addSubjectEndpoint, removeSubjectEndpoint, verificationEndpoint,
-            statusEndpoint, configurationEndpoint;
+    private String issuer, jwksUri, addSubjectEndpoint, removeSubjectEndpoint, verificationEndpoint, statusEndpoint,
+            configurationEndpoint;
     private List<String> criticalSubjectMembers, deliveryMethodsSupported;
 
     public Transmitter() {
@@ -41,8 +40,7 @@ public class Transmitter {
 
     public Transmitter(String issuer, String jwksUri, String addSubjectEndpoint, String removeSubjectEndpoint,
                        String verificationEndpoint, String statusEndpoint, String configurationEndpoint,
-                       List<String> criticalSubjectMembers,
-                       List<String> deliveryMethodsSupported) {
+                       List<String> criticalSubjectMembers, List<String> deliveryMethodsSupported) {
         this.issuer = issuer;
         this.jwksUri = jwksUri;
         this.addSubjectEndpoint = addSubjectEndpoint;

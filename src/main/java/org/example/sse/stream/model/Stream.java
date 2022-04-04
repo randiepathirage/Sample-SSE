@@ -63,8 +63,8 @@ public class Stream {
     }
 
     public Stream(String id, String iss, String status, List<String> aud, Delivery delivery,
-                  List<String> eventsSupported, List<String> eventsRequested,
-                  List<String> eventsDelivered, List<Subject> subjects) {
+                  List<String> eventsSupported, List<String> eventsRequested, List<String> eventsDelivered,
+                  List<Subject> subjects) {
         this.id = id;
         this.iss = iss;
         this.status = status;
@@ -96,8 +96,7 @@ public class Stream {
     }
 
     public Stream(String id, String iss, String status, List<String> aud, Delivery delivery,
-                  List<String> eventsSupported,
-                  List<String> eventsRequested, List<String> eventsDelivered) {
+                  List<String> eventsSupported, List<String> eventsRequested, List<String> eventsDelivered) {
         this.id = id;
         this.iss = iss;
         this.status = status;
