@@ -1,6 +1,6 @@
-# SpringBoot-API
+# Smaple POC for Shared Signals and Events(SSE) Specification 
 
-REST API based on Java Spring Boot.
+REST API based on Java Spring Boot that demonstrates how the [Shared Signals and Events (SSE)](https://openid.net/specs/openid-sse-framework-1_0-ID1.html) Framework works.
 
 ## Prerequisites
 
@@ -8,20 +8,27 @@ REST API based on Java Spring Boot.
 * Maven 3.x
 * MongoDB 5.0.6
 
+## Getting started
 
-## How to Run 
+1. Clone the project and run it using a code editor ( Intellij, Eclipse)
+    * The project will start running in port 8080
+2. Run the [WSO2 Identity server](https://github.com/wso2/product-is#installation-and-running) 
+3. Deploy a sample application in Tomcat
+     * The sample application should be a [configured as Service Provider in Wso2 Identity Server](https://is.docs.wso2.com/en/latest/learn/adding-and-configuring-a-service-provider/)
+     
+4. Run MongoDB database 
+    *  Start MongoDB by running the following command in MongDB bin folder path.
+    ```
+    $ mongod
+    ```
+   * You might need to update the default MongoDB URI `spring.data.mongodb.uri` in the `application.properties` file to your port number where MongoDB is running.
 
-### Frontend
-### Backend
-*  Start MongoDB by running the following command in MongDB bin folder path
+## Swagger 
+
+View the SwaggerHub:
 ```
-$ mongod
+https://app.swaggerhub.com/apis-docs/randiepathirage/Sample-SSE/1.0.0
 ```
-* You might need to update the default MongoDB URI `spring.data.mongodb.uri` in the `application.properties` file to your port number where MongoDB is running.
-
-## Features
- 
-## Endpoints
 View the Swagger UI open your browser to here:
 ```
 http://localhost:8080/swagger-ui/
@@ -30,6 +37,8 @@ The Swagger API documentation 2.0 is at:
 ```
 http://localhost:8080/v2/api-docs
 ```
+
+## Endpoints
 
 ### Transmitter configuration 
 Retrieve transmitter Configuration information. 
@@ -105,5 +114,16 @@ Sends verification Event over the Event Stream to check whether the stream is wo
 ```
 curl --location --request POST 'http://localhost:8080/sse/verify'
 ```
+### Event Control
+Store events in database and send event to subscribers.
 
+ */event endpoint is not part of the SSE spec*
+
+```
+curl --location --request POST 'http://localhost:8080/event' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "token":"exampleToken"
+}'
+```
 
