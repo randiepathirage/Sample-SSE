@@ -18,20 +18,17 @@
 
 package org.example.sse.event;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.example.sse.stream.StreamRepository;
 import org.example.sse.stream.model.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -44,6 +41,7 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "event")
 @Slf4j
+@Api(description = "Events Controller", tags = "Event Control")
 public class EventController {
 
     private final EventRepository eventRepository;
@@ -57,8 +55,8 @@ public class EventController {
 
     //add event to database
     @PostMapping
-    @ApiOperation(value = "", notes = "Add events to database")
-    public void addEvent(@RequestBody Event event) {
+    @ApiOperation(value = "", notes = "Store events in database and send event to subscribers.")
+    public void newEvent(@RequestBody Event event) {
 
         eventRepository.save(event);
 
@@ -86,16 +84,16 @@ public class EventController {
     }
 
     //retrieve events
-    @GetMapping
-    @ApiOperation(value = "", notes = "Retrieve events by subject")
-    public ResponseEntity<?> getEvent(@RequestHeader("subject") String subject) {
-
-        List<Event> event = eventRepository.findBySubject(subject);
-        if (event.size() > 0) {
-
-            return new ResponseEntity<>(event, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        }
-    }
+//    @GetMapping
+//    @ApiOperation(value = "", notes = "Retrieve events by subject")
+//    public ResponseEntity<?> viewEvent(@RequestHeader("subject") String subject) {
+//
+//        List<Event> event = eventRepository.findBySubject(subject);
+//        if (event.size() > 0) {
+//
+//            return new ResponseEntity<>(event, HttpStatus.OK);
+//        } else {
+//            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+//        }
+//    }
 }

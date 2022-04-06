@@ -18,6 +18,8 @@
 
 package org.example.sse.transmitter;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +34,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(path = ".well-known/sse-configuration")
+@Api(description = "Transmitter Controller", tags = "Transmitter configuration")
 public class TransmitterController {
 
     private final TransmitterRepository transmitterRepository;
@@ -42,6 +45,7 @@ public class TransmitterController {
     }
 
     @GetMapping
+    @ApiOperation(value = "", notes = "Retrieve transmitter Configuration information.")
     public ResponseEntity<?> getConfiguration() {
 
         List<Transmitter> transmittersList = transmitterRepository.findAll();

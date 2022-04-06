@@ -18,6 +18,7 @@
 
 package org.example.sse.stream;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.example.sse.stream.model.Stream;
 import org.example.sse.stream.model.Subject;
@@ -49,6 +50,7 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
  */
 @RestController
 @RequestMapping(path = "sse")
+@Api(description = "Stream Controller", tags = "Stream Management API ")
 public class StreamController {
 
     @Value("${spring.security.oauth2.resourceserver.opaque.introspection-uri}")
