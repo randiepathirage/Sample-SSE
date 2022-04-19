@@ -20,6 +20,41 @@ package org.wso2.identity.oidc.sse.event.handler.exception;
 
 import org.wso2.carbon.identity.base.IdentityException;
 
+/**
+ * Used to create checked exceptions that can be handled.
+ */
 public class OIDCSSEException extends IdentityException {
 
+    public OIDCSSEException() {
+
+        super(message);
+        this.setErrorCode(getDefaultErrorCode());
+    }
+
+    public OIDCSSEException(String errorCode, String message) {
+
+        super(errorCode, message);
+        this.setErrorCode(errorCode);
+    }
+
+    public OIDCSSEException(String message, Throwable cause) {
+
+        super(message, cause);
+    }
+
+    public OIDCSSEException(String errorCode, String message, Throwable cause) {
+
+        super(errorCode, message, cause);
+        this.setErrorCode(errorCode);
+    }
+
+    public String getErrorDescription() {
+
+        return this.getMessage();
+    }
+
+    private String getDefaultErrorCode() {
+
+        return super.getErrorCode();
+    }
 }

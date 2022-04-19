@@ -86,7 +86,7 @@ public class EventController {
                 for (int i = 0; stream.getAud().size() > i; i++) {
                     String uri = stream.getAud().get(i);
                     RestTemplate restTemplate = new RestTemplate();
-                    String result = restTemplate.postForObject(uri, map, String.class);
+                    restTemplate.postForObject(uri, map, String.class);
                     log.info("Session invalidated successfully");
                 }
             }

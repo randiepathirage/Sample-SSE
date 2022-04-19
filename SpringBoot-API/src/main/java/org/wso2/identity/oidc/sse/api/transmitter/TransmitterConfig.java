@@ -44,7 +44,7 @@ public class TransmitterConfig implements CommandLineRunner {
         this.transmitterRepository.save((new Transmitter("https://tr.example.com", "https://tr.example.com/jwks.json"
                 , "http://localhost:8080/sse/subjects:add", "http://localhost:8080/sse/subjects:remove", "http" +
                 "://localhost:8080/sse/verify", "https://tr.example.com/sse/mgmt/status", "http://localhost:8080/sse" +
-                "/stream", Arrays.asList("tenant", "user"), Arrays.asList("https://schemas.openid" +
+                "/stream", Arrays.asList("tenant", "user"), Arrays.asList("https" + "://schemas.openid" +
                 ".net/secevent/risc/delivery-method/push", "https://schemas.openid" +
                 ".net/secevent/risc/delivery-method/poll"))));
     }

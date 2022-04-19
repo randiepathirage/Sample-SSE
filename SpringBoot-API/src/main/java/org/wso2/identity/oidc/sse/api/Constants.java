@@ -20,8 +20,6 @@ package org.wso2.identity.oidc.sse.api;
 
 public class Constants {
 
-    public static final String TOKEN = "token";
-
     public class Scope {
 
         public static final String STATUS_READ = "SCOPE_status_read";

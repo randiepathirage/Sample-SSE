@@ -21,16 +21,14 @@ package org.wso2.identity.oidc.sse.event.handler.internal;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.osgi.service.component.ComponentContext;
+import org.osgi.service.component.annotations.Component;
 import org.wso2.carbon.identity.event.handler.AbstractEventHandler;
 import org.wso2.identity.oidc.sse.event.handler.SseEventHandler;
 
-//TODO check the scr annotation
-
 /**
- * @scr.component name="custom.event.handler"
- * immediate="true"
+ * Activate and deactivate SSE event handler.
  */
-//TODO  add class level comment
+@Component(name = "custom.event.handler", immediate = true)
 public class SseEventHandlerComponent {
 
     private static final Log LOG = LogFactory.getLog(SseEventHandlerComponent.class);

@@ -37,11 +37,16 @@ import org.wso2.carbon.identity.event.handler.AbstractEventHandler;
 import org.wso2.carbon.identity.oauth2.IdentityOAuth2Exception;
 import org.wso2.carbon.identity.oauth2.util.OAuth2Util;
 import org.wso2.carbon.utils.multitenancy.MultitenantConstants;
+import org.wso2.identity.oidc.sse.event.handler.exception.OIDCSSEClientException;
+import org.wso2.identity.oidc.sse.event.handler.exception.OIDCSSEServerException;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
-//TODO class level comment
+/**
+ * Handle SSE events.
+ */
 public class SseEventHandler extends AbstractEventHandler {
 
     private static Log LOG = LogFactory.getLog(SseEventHandler.class);
@@ -62,8 +67,8 @@ public class SseEventHandler extends AbstractEventHandler {
             if (StringUtils.isEmpty(userName)) {
 
             }
-            JWTClaimsSet claimsSet = new JWTClaimsSet.Builder().issuer(userName).audience(OIDCSSEConstants.AUDIENCE)
-                    .subject(OIDCSSEConstants.TENANT_ID).build();
+            JWTClaimsSet claimsSet =
+                    new JWTClaimsSet.Builder().issuer(userName).audience(OIDCSSEConstants.AUDIENCE).subject(OIDCSSEConstants.TENANT_ID).build();
 
             try {
                 String token = OAuth2Util.signJWTWithRSA(claimsSet, JWSAlgorithm.RS256,
@@ -77,8 +82,9 @@ public class SseEventHandler extends AbstractEventHandler {
                 sendNotification(url, token, userName, event.getEventName());
             } catch (IdentityOAuth2Exception e) {
                 //TODO add debug logs and throw the exceptions
-            } catch (IOException e) {
-                //TODO add debug logs and throw the exceptions
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug(e.toString());
+                }
             }
         }
     }
@@ -93,22 +99,35 @@ public class SseEventHandler extends AbstractEventHandler {
         jsonObject.accumulate(OIDCSSEConstants.SUBJECT, userName);
         jsonObject.accumulate(OIDCSSEConstants.EVENT, eventName);
 
-
         String json = jsonObject.toString();
 
         //TODO throw server exception
-        StringEntity se = new StringEntity(json);
+        StringEntity se = null;
+        try {
+            se = new StringEntity(json);
+            throw new OIDCSSEServerException();
+        } catch (OIDCSSEServerException e) {
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
         httpPost.setEntity(se);
         httpPost.setHeader(HTTPConstants.HEADER_ACCEPT, HTTPConstants.MEDIA_TYPE_APPLICATION_JSON);
         httpPost.setHeader(HTTPConstants.HEADER_CONTENT_TYPE, HTTPConstants.MEDIA_TYPE_APPLICATION_JSON);
 
         //TODO throw client exception
-        HttpResponse response = client.execute(httpPost);
-        //TODO change to debug logs
-        System.out.println(response.getStatusLine().getStatusCode());
+        HttpResponse response = null;
+        try {
+            response = client.execute(httpPost);
+            throw new OIDCSSEClientException();
+        } catch (IOException | OIDCSSEClientException e) {
+           // e.printStackTrace();.................................
+        }
+        if (LOG.isDebugEnabled()) {
+            LOG.debug(response.getStatusLine().getStatusCode());
+        }
     }
-
 
     @Override
     public String getName() {

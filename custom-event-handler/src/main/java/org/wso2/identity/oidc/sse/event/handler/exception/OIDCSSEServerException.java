@@ -18,6 +18,28 @@
 
 package org.wso2.identity.oidc.sse.event.handler.exception;
 
-public class OIDCSSEServerException extends OIDCSSEException{
+/**
+ * Exception class used to handle SSE Server related exceptions.
+ */
+public class OIDCSSEServerException extends OIDCSSEException {
 
+    public OIDCSSEServerException() {
+
+        super();
+    }
+
+    public OIDCSSEServerException(String errorCode, String message) {
+
+        super(errorCode, message);
+    }
+
+    public OIDCSSEServerException(String message, Throwable cause) {
+
+        super(message, cause);
+    }
+
+    public OIDCSSEServerException(String errorCode, String message, Throwable cause) {
+
+        super(errorCode, message, cause);
+    }
 }

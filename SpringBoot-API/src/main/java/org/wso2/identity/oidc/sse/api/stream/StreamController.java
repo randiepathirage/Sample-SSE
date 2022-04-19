@@ -20,6 +20,7 @@ package org.wso2.identity.oidc.sse.api.stream;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -298,8 +299,8 @@ public class StreamController {
             }
             int flag = -1;
             for (int i = 0; i < newSubjects.size(); i++) {
-                if (removeSubject.getFormat().equals(newSubjects.get(i).getFormat())) {
-                    if (removeSubject.getEmail().equals(newSubjects.get(i).getEmail())) {
+                if (StringUtils.equals(removeSubject.getFormat(), newSubjects.get(i).getFormat())) {
+                    if (StringUtils.equals(removeSubject.getEmail(), newSubjects.get(i).getEmail())) {
                         flag = i;
                         break;
                     }
