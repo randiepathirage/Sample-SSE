@@ -87,11 +87,16 @@ public class EventController {
                     String uri = stream.getAud().get(i);
                     RestTemplate restTemplate = new RestTemplate();
                     restTemplate.postForObject(uri, map, String.class);
-                    log.info("Session invalidated successfully");
+
+                    if (log.isDebugEnabled()) {
+                        log.debug("Session invalidated successfully");
+                    }
                 }
             }
         } else {
-            log.info("No stream found");
+            if (log.isDebugEnabled()) {
+                log.debug("No stream found");
+            }
         }
     }
 }

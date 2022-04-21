@@ -109,7 +109,7 @@ public class SseEventHandler extends AbstractEventHandler {
         } catch (OIDCSSEServerException e) {
 
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+           // e.printStackTrace();.....................
         }
 
         httpPost.setEntity(se);
